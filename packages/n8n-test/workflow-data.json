@@ -1,0 +1,85 @@
+{
+    "name": "simple",
+    "nodes": [
+      {
+        "parameters": {
+          "inputId": "12345"
+        },
+        "name": "Start",
+        "type": "n8n-nodes-base.start",
+        "typeVersion": 1,
+        "position": [
+          250,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "functionCode": "console.log('input', items); return [{ json: { foo: 42+Math.random() } }, ...items];"
+        },
+        "name": "Function",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          400,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "functionCode": "console.log('lastNode', items);\nreturn items;"
+        },
+        "name": "Function1",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          550,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "command": "=echo '{{$node[\"Function\"].data[\"foo\"]}}' >> /tmp/hugo"
+        },
+        "name": "Execute Command",
+        "type": "n8n-nodes-base.executeCommand",
+        "typeVersion": 1,
+        "position": [
+          540,
+          500
+        ]
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "Function",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function": {
+        "main": [
+          [
+            {
+              "node": "Function1",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Execute Command",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {},
+    "id": "2"
+  }
