@@ -1,0 +1,335 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "dbAPI",
+    "version": "v2",
+    "title": "dbapi-transactions",
+    "termsOfService": "https://developer.db.com/termsandconditions",
+    "contact": {
+      "url": "https://developer.db.com/contact",
+      "email": "bank.api@db.com"
+    }
+  },
+  "host": "simulator-api.db.com:443",
+  "basePath": "/gw/dbapi/banking/transactions/v2",
+  "tags": [{ "name": "Transactions" }],
+  "schemes": ["https"],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Reads all transactions of the current cash account.",
+        "description": "Reads all transactions for a specific account of the current user. If given IBAN is not valid or does not represent an account of the current user, an empty result is returned. It is not apparent who issued a transaction, only whether the user gained or lost money by it (based on whether the amount is positive or negative respectively). The maximum number of transactions returned is 200.",
+        "operationId": "getCashAccountTransactions",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "iban",
+            "in": "query",
+            "description": "mandatory - IBAN representing an account of the current user.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "currencyCode",
+            "in": "query",
+            "description": "optional - ISO-code of the transactions' currency. If not provided 'EUR' will be chosen. Additional information: a cash account is unique only with the combination currencyCode.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bookingDateFrom",
+            "in": "query",
+            "description": "optional - booking date of original transaction. Date in ISO 8601 format, YYYY-MM-DD. If not provided, 1980-01-01 will be chosen if called with a PSD2-compliant strong customer authentication (SCA), or the date prior to today with a maximum PSD2-compliant daycount if not called with a PSD2-compliant SCA.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bookingDateTo",
+            "in": "query",
+            "description": "optional - booking Day until which the transactions to be searched for. Date in ISO 8601 format YYYY-MM-DD. If not provided, the current day will be chosen. bookingDateTo must be greater than or equal to bookingDateFrom.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "optional - order of transactions - supported sort orders are 'bookingDate[ASC]' or 'bookingDate[DESC]'.",
+            "required": false,
+            "type": "string",
+            "default": "bookingDate[ASC]"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "optional - limit defines count of resources per request/page.",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "maximum": 200,
+            "minimum": 0
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "optional - pagination depending on the query parameter limit. Defines current page offset, starting with 0, default 0",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "minimum": 0
+          },
+          {
+            "name": "Correlation-Id",
+            "in": "header",
+            "description": "Free form key controlled by the caller e.g. uuid",
+            "required": false,
+            "type": "string",
+            "maxLength": 50
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "totalItems": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Cumulated number of items across all pages for your request parameters.",
+                  "minimum": 0
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Count of resources per request/page.",
+                  "minimum": 0
+                },
+                "offset": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Current page offset.",
+                  "minimum": 0
+                },
+                "transactions": {
+                  "type": "array",
+                  "items": {
+                    "originalRef": "#/definitions/CashAccountTransaction",
+                    "$ref": "#/definitions/CashAccountTransaction"
+                  }
+                }
+              }
+            },
+            "responseSchema": {
+              "type": "object",
+              "properties": {
+                "totalItems": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Cumulated number of items across all pages for your request parameters.",
+                  "minimum": 0
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Count of resources per request/page.",
+                  "minimum": 0
+                },
+                "offset": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Current page offset.",
+                  "minimum": 0
+                },
+                "transactions": {
+                  "type": "array",
+                  "items": {
+                    "originalRef": "#/definitions/CashAccountTransaction",
+                    "$ref": "#/definitions/CashAccountTransaction"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unsuccessful operation",
+            "schema": {
+              "originalRef": "#/definitions/ErrorResponse",
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "responseSchema": {
+              "originalRef": "#/definitions/ErrorResponse",
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          { "api_implicit": ["read_transactions"] },
+          { "api_auth_code": ["read_transactions"] }
+        ]
+      }
+    },
+    "/{transactionId}": {
+      "get": {
+        "tags": ["Transaction"],
+        "summary": "Reads a transaction by id.",
+        "description": "Reads a transaction by its id.",
+        "operationId": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "the id of the requested transaction",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Correlation-Id",
+            "in": "header",
+            "description": "Free form key controlled by the caller e.g. uuid",
+            "required": false,
+            "type": "string",
+            "maxLength": 50
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "originalRef": "#/definitions/CashAccountTransaction",
+              "$ref": "#/definitions/CashAccountTransaction"
+            },
+            "responseSchema": {
+              "originalRef": "#/definitions/CashAccountTransaction",
+              "$ref": "#/definitions/CashAccountTransaction"
+            }
+          },
+          "default": {
+            "description": "unsuccessful operation",
+            "schema": {
+              "originalRef": "#/definitions/ErrorResponse",
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "responseSchema": {
+              "originalRef": "#/definitions/ErrorResponse",
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          { "api_implicit": ["read_transactions"] },
+          { "api_auth_code": ["read_transactions"] }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_auth_code": {
+      "type": "oauth2",
+      "authorizationUrl": "https://simulator-api.db.com/gw/oidc/authorize",
+      "tokenUrl": "https://simulator-api.db.com/gw/oidc/token",
+      "flow": "accessCode",
+      "scopes": {
+        "read_transactions": "Grants read access to all cash account transactions for all cash accounts for the given customer. The API provides up to 90 days of transaction history.",
+        "openid": "Request access to OpenId Connect functionality",
+        "offline_access": "Request an OAuth2 Refresh Token"
+      }
+    },
+    "api_implicit": {
+      "type": "oauth2",
+      "authorizationUrl": "https://simulator-api.db.com/gw/oidc/authorize",
+      "flow": "implicit",
+      "scopes": {
+        "read_transactions": "Grants read access to all cash account transactions for all cash accounts for the given customer. The API provides up to 90 days of transaction history.",
+        "openid": "Request access to OpenId Connect functionality"
+      }
+    }
+  },
+  "definitions": {
+    "ErrorResponse": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": { "type": "integer", "description": "The error code" },
+        "message": {
+          "type": "string",
+          "description": "Description of the belonging error code."
+        }
+      },
+      "description": "Default error response message"
+    },
+    "CashAccountTransaction": {
+      "type": "object",
+      "required": ["amount", "bookingDate", "id", "originIban"],
+      "properties": {
+        "id": { "type": "string", "description": "transaction's unique Id" },
+        "originIban": {
+          "type": "string",
+          "description": "The IBAN of this account."
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of the transaction. If the amount is positive, the customer received money, if the amount is negative the customer lost money."
+        },
+        "counterPartyName": {
+          "type": "string",
+          "description": "Name of the counter party"
+        },
+        "counterPartyIban": {
+          "type": "string",
+          "description": "IBAN of the counter party"
+        },
+        "paymentReference": {
+          "type": "string",
+          "description": "Payment reference"
+        },
+        "bookingDate": {
+          "type": "string",
+          "description": "Booking date. In the format YYYY-MM-DD."
+        },
+        "currencyCode": {
+          "type": "string",
+          "description": "ISO-code of the cash accounts' currency."
+        },
+        "transactionCode": {
+          "type": "string",
+          "description": "Specifies the business transaction code (GVC)."
+        },
+        "externalBankTransactionDomainCode": {
+          "type": "string",
+          "description": "Specifies the bank transaction code domain, as published in an external bank transaction code domain code list according to ISO 20022."
+        },
+        "externalBankTransactionFamilyCode": {
+          "type": "string",
+          "description": "Specifies the external family code of the bank transaction code in the format of character string with a maximum length of 4 characters according to ISO 20022."
+        },
+        "externalBankTransactionSubFamilyCode": {
+          "type": "string",
+          "description": "Specifies the bank transaction code sub-family, as published in an external bank transaction code sub-family code list according to ISO 20022."
+        },
+        "mandateReference": {
+          "type": "string",
+          "description": "MandateReference of the direct debit transaction, max length 35 characters."
+        },
+        "creditorId": {
+          "type": "string",
+          "description": "Creditor ID, max length 35 characters."
+        },
+        "e2eReference": {
+          "type": "string",
+          "description": "Unique identification given by the orderer to identify the order."
+        },
+        "paymentIdentification": {
+          "type": "string",
+          "description": "Unique and unambiguous identification of a transaction, as assigned by any of the customer parties on the initiating side."
+        },
+        "valueDate": {
+          "type": "string",
+          "description": "Value date of Transaction in ISO 8601 format (YYYY-MM-DD). In very specific cases, technical date is possible for e.g., (2020-02-30)."
+        }
+      },
+      "description": "A cash account transaction."
+    }
+  }
+}
