@@ -9,6 +9,9 @@ Then you can install the finrelay-prep/packages/backend/
 <br/>
 with `npm install`
 
+Install angular on your system:
+`sudo npm i -g @angular/cli`
+
 For the angular frontend finrelay-prep/packages/frontend/
 install with `npm install`
 <br/>
