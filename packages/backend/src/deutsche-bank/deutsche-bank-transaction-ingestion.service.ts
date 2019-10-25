@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { DataFrame } from 'data-forge';
 import * as fs from 'fs';
 import * as path from 'path';
+import { TEST_TRANSACTION_DATA } from './test-transaction-data.const';
 
 @Injectable()
 export class DeutscheBankTransactionIngestionService {
@@ -12,7 +13,7 @@ export class DeutscheBankTransactionIngestionService {
   public async initialize() {
     console.log('Initializing DeutscheBankTransactionIngestionService...');
     setInterval(() => {
-      const df = new DataFrame((JSON.parse(fs.readFileSync(path.join(__dirname, '1.json')) as any).transactions)).take(5);
+      const df = new DataFrame(TEST_TRANSACTION_DATA.transactions).take(5);
       console.log(df.toString());
       const events = df
         .select(payload => ({
