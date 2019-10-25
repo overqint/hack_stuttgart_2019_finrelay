@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
+import { AccountsService } from '@shared/accounts.service';
 
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
 })
 export class AccountsComponent implements OnInit {
-  constructor(private http: _HttpClient) {}
+  accounts: any[];
+  constructor(private accountsService: AccountsService) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.accounts = await this.accountsService.findAll();
+  }
 
   onClickButton() {
     alert('Hello!');

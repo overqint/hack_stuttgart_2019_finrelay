@@ -105,14 +105,22 @@ export class StartupService {
     // ACL: Set the permissions to full, https://ng-alain.com/acl/getting-started
     this.aclService.setFull(true);
     // Menu data, https://ng-alain.com/theme/menu
-    const accountsChildren = [
+    const actualAccountsChildren = [
       {
         text: 'DBank1',
         link: '/accounts/DBank1',
         icon: { type: 'icon', value: 'rocket' },
       },
     ];
-    const menuItems = [
+    const accountsChildren = [
+      ...actualAccountsChildren,
+      {
+        text: 'Manage',
+        link: '/accounts',
+        icon: { type: 'icon', value: 'rocket' },
+      },
+    ];
+    let menuItems = [
       {
         text: 'Main',
         group: true,
@@ -138,11 +146,24 @@ export class StartupService {
     ];
     this.menuService.add(menuItems);
     setTimeout(() => {
-      accountsChildren.push({
+      console.log(menuItems);
+      actualAccountsChildren.push({
         text: 'DBank2',
         link: '/accounts/DBank2',
         icon: { type: 'icon', value: 'rocket' },
       });
+      const accountsChildren = [
+        ...actualAccountsChildren,
+        {
+          text: 'Manage',
+          link: '/accounts',
+          icon: { type: 'icon', value: 'rocket' },
+        },
+      ];
+      const accountsItem = menuItems[0].children.find((e: any) => {
+        return e.link === '/accounts';
+      });
+      accountsItem.children = accountsChildren;
       this.menuService.add(menuItems);
     }, 5000);
     // Can be set page suffix title, https://ng-alain.com/theme/title

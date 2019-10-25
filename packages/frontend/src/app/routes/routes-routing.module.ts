@@ -17,6 +17,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { AccountsComponent } from './accounts/accounts.component';
+import { SingleAccountComponent } from './accounts/single-accounts.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
       { path: 'contracts', component: ContractsComponent, data: { title: 'Contracts' } },
       { path: 'accounts', component: AccountsComponent, data: { title: 'Accounts' } },
+      { path: 'accounts/:accountId', component: SingleAccountComponent, data: { title: 'Accounts' } },
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
       // 业务子模块
       // { path: 'widgets', loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule) },
