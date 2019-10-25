@@ -24,8 +24,9 @@ export class AccountsController {
       },
     ];
   }
-
-  getTransactionsByAccountId(accountId: string) {
+ 
+  @Get(':accountId/transactions')
+  async getTransactionsByAccountId(@Param('accountId') accountId: string) {
     if (accountId === 'DBank1') {
       return this.getTransactionsByAccountId1()
         .map((e: any) => ({
