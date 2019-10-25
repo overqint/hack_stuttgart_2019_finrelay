@@ -17,3 +17,5 @@ start with
 (command explanation: angular serve open default browser)
 <br/>
 `ng s -o`
+<br/>
+Open browser app runs under: http://localhost:4200/
