@@ -1,16 +1,16 @@
 import { Injectable, Injector, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 
 @Injectable()
 export class AccountsService {
   constructor(private httpClient: HttpClient) {}
 
   async findById(accountId: string) {
-    return {
-      _id: accountId,
-      name: accountId,
-      iban: accountId === 'DBank1' ? 'DE10010000000000005211' : 'DE10010000000000005250',
-    };
+    return this.httpClient
+      .get(`http://localhost:3000/accounts/${accountId}`)
+      .pipe(take(1))
+      .toPromise();
   }
 
   findAll(): any[] | PromiseLike<any[]> {
