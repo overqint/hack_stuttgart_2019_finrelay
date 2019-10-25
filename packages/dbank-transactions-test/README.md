@@ -25,3 +25,23 @@ The package is optimized and bundled with Rollup into multiple formats (CommonJS
 
 Runs the test watcher (Jest) in an interactive mode.
 By default, runs tests related to files changed since the last commit.
+
+
+# Troubleshooting
+
+if you get error messages like these while trying to execute `npm start`:
+
+`sh: tsdx: command not found
+npm ERR! code ELIFECYCLE
+npm ERR! syscall spawn
+npm ERR! file sh
+npm ERR! errno ENOENT
+npm ERR! dbank-transactions-test@0.1.0 start: `tsdx watch`
+npm ERR! spawn ENOENT
+npm ERR!
+npm ERR! Failed at the dbank-transactions-test@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging outp`
+
+#### execute in the same folder: 
+`npm install` 
+to install the missing dependencies
