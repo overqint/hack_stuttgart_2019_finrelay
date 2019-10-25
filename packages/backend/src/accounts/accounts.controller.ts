@@ -1,4 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { throwError } from 'rxjs';
 
 @Controller('accounts')
 export class AccountsController {
@@ -40,7 +41,7 @@ export class AccountsController {
         ...e,
         bookingDate: new Date(e.bookingDate),
       }))
-      .slice(0, 10);
+      .slice(0, 10); 
   }
 
   getTransactionsByAccountId1() {

@@ -120,7 +120,7 @@ export class StartupService {
         icon: { type: 'icon', value: 'rocket' },
       },
     ];
-    let menuItems = [
+    const menuItems = [
       {
         text: 'Main',
         group: true,
