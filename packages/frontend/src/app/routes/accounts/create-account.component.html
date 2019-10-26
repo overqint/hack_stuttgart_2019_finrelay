@@ -6,6 +6,13 @@
         <nz-form-item>
             <nz-form-control nzErrorTip="Please input your username!">
                 <nz-input-group nzPrefixIcon="user">
+                  <nz-select [(ngModel)]="account.type" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose">
+                    <nz-option nzValue="iban" nzLabel="Deutsche Bank"></nz-option>
+                  </nz-select>
+                </nz-input-group>
+              </nz-form-control>
+            <nz-form-control nzErrorTip="Please input your username!" *ngIf="account.type === 'iban'">
+                <nz-input-group nzPrefixIcon="user">
                   <input
                     type="text"
                     nz-input
@@ -14,7 +21,7 @@
                   />
                 </nz-input-group>
               </nz-form-control>
-              <nz-form-control nzErrorTip="Please input your username!">
+              <nz-form-control nzErrorTip="Please input your username!" *ngIf="account.type === 'iban'">
                   <nz-input-group nzPrefixIcon="user">
                     <input
                       type="text"
@@ -24,7 +31,7 @@
                     />
                   </nz-input-group>
                 </nz-form-control>
-                <nz-form-control nzErrorTip="Please input your username!">
+                <nz-form-control nzErrorTip="Please input your username!" *ngIf="account.type === 'iban'">
                     <nz-input-group nzPrefixIcon="user">
                       <input
                         type="text"
