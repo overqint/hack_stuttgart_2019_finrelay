@@ -8,10 +8,16 @@ import { AccountsController } from './accounts/accounts.controller';
 import { AccountsRepository } from './accounts/accounts.repository';
 import { ContractsController } from './contracts/contracts.controller';
 import { ContractsRepository } from './contracts/contracts.repository';
+import { ContractExecutorService } from './contracts/contract-executor.service';
 
 @Module({
   imports: [DeutscheBankModule, N8NWrapperModule],
   controllers: [AppController, AccountsController, ContractsController],
-  providers: [AppService, AccountsRepository, ContractsRepository],
+  providers: [
+    AppService,
+    AccountsRepository,
+    ContractsRepository,
+    ContractExecutorService,
+  ],
 })
 export class AppModule {}
