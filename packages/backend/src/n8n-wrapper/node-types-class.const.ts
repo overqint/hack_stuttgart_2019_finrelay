@@ -189,6 +189,87 @@ export class NodeTypesClass implements INodeTypes {
         },
       },
     },
+    'finrelay-nodes.wireTransfer': {
+      sourcePath: '',
+      type: {
+        description: {
+          displayName: 'Start',
+          name: 'start',
+          group: ['input'],
+          version: 1,
+          description: 'Starts the workflow execution from this node',
+          defaults: {
+            name: 'Start',
+            color: '#553399',
+          },
+          inputs: [],
+          outputs: ['main'],
+          properties: [
+            {
+              displayName: 'Binary Property',
+              name: 'amount',
+              type: 'number',
+              default: '',
+              required: false,
+              description:
+                'Name of the binary property from which to<br />read the PDF file.',
+            },
+            {
+              displayName: 'Binary Property',
+              name: 'counterPartyName',
+              type: 'string',
+              default: '',
+              required: false,
+              description:
+                'Name of the binary property from which to<br />read the PDF file.',
+            },
+            {
+              displayName: 'Binary Property',
+              name: 'iban',
+              type: 'string',
+              default: '',
+              required: false,
+              description:
+                'Name of the binary property from which to<br />read the PDF file.',
+            },
+            {
+              displayName: 'Binary Property',
+              name: 'usePercentage',
+              type: 'boolean',
+              default: '',
+              required: false,
+              description:
+                'Name of the binary property from which to<br />read the PDF file.',
+            },
+          ],
+        },
+        execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+          console.log("WIRETRANSFER123");
+          const transferSingleItem = (item: any) => {
+            try {
+            const parameters = {
+              amount: this.getNodeParameter("amount", NaN) as number,
+              counterPartyName: this.getNodeParameter("counterPartyName", NaN) as string,
+              iban: this.getNodeParameter("iban", NaN) as string,
+              usePercentage: this.getNodeParameter("usePercentage", NaN) as boolean
+            };
+            console.warn('WIRETRANSFER', parameters);
+          } catch(err) {
+            console.error(err);
+          }
+          };
+          const inputData = this.getInputData();
+          if (Array.isArray(inputData)) {
+            for(let item of inputData.map((e) => e.json)) {
+              transferSingleItem(item);
+            }
+          } else {
+            transferSingleItem(inputData);
+          }
+          return this.prepareOutputData(inputData);
+        },
+      },
+    },
   };
   async init(nodeTypes: INodeTypeData): Promise<void> {}
   getAll(): INodeType[] {

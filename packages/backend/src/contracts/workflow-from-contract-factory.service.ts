@@ -29,6 +29,18 @@ export class WorkflowFromContractFactoryService {
           },
         });
       }
+      if (action.type === 'wire-transfer') {
+        nodes.push({
+          name: 'Send Email',
+          type: 'finrelay-nodes.wireTransfer',
+          parameters: action.data,
+          typeVersion: 1,
+          position: [400, 470],
+          credentials: {
+            smtp: 'mail-default',
+          },
+        });
+      }
     }
     return nodes;
   }
@@ -117,7 +129,8 @@ export class WorkflowFromContractFactoryService {
 
     // console.log('connections:', connections);
     workflow.connections = connections;
-    console.log('workflow:', JSON.stringify(workflow, null, 2));
+    //console.log('workflow:', JSON.stringify(workflow, null, 2));
+    console.log('workflow:.nodes', JSON.stringify(workflow.nodes, null, 2));
     return workflow;
   }
 }

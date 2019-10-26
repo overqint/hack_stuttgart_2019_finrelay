@@ -66,7 +66,7 @@ export class ContractExecutorService {
         continue;
       }
     }
-    console.log('transactions:', transactions);
+    //console.log('transactions:', transactions);
     return transactions;
   }
 

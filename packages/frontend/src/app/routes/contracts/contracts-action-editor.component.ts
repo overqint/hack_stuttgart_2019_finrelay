@@ -41,7 +41,8 @@ export class ContractsActionEditorComponent {
 
   validActionTypes = [
     'noop',
-    "e-mail"
+    "e-mail",
+    "wire-transfer"
   ]
 
   onActionTypeChanged(action) {
