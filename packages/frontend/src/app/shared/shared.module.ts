@@ -15,13 +15,14 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
 import { AccountsService } from './accounts.service';
 import { ContractsService } from './contracts.service';
+import { FrontendNotificationService } from './frontend-notification.service';
 const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
 // #endregion
 
 // #region your componets & directives
 const COMPONENTS = [];
 const DIRECTIVES = [];
-const PROVIDERS = [AccountsService, ContractsService];
+const PROVIDERS = [AccountsService, ContractsService, FrontendNotificationService];
 // #endregion
 
 @NgModule({

@@ -3,8 +3,7 @@ import { _HttpClient } from '@delon/theme';
 import { ActivatedRoute } from '@angular/router';
 import { ContractsService } from '@shared/contracts.service';
 import { AccountsService } from '@shared/accounts.service';
-import { el_GR } from 'ng-zorro-antd';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { FrontendNotificationService } from '@shared/frontend-notification.service';
 
 @Component({
   selector: 'app-single-contract',
@@ -14,7 +13,7 @@ export class SingleContractComponent implements OnInit {
   constructor(
     private accountsService: AccountsService,
     private contractsService: ContractsService,
-    private route: ActivatedRoute, private notification: NzNotificationService
+    private route: ActivatedRoute, private notification: FrontendNotificationService
   ) { }
 
   contract: any;
