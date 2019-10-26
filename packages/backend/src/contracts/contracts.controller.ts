@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { ContractsRepository } from './contracts.repository';
 import { ContractExecutorService } from './contract-executor.service';
 
@@ -20,8 +20,11 @@ export class ContractsController {
   }
 
   @Post(':contractId/execute')
-  async executeContractById(@Param('contractId') contractId: string) {
+  async executeContractById(
+    @Param('contractId') contractId: string,
+    @Body() payload,
+  ) {
     const contract = await this.contractsRepository.findOneById(contractId);
-    this.contractExecutorService.execute(contract);
+    this.contractExecutorService.execute(contract, payload);
   }
 }

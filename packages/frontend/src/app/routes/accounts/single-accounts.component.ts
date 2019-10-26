@@ -2,13 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { ActivatedRoute } from '@angular/router';
 import { AccountsService } from '@shared/accounts.service';
+import { ContractsService } from '@shared/contracts.service';
 
 @Component({
   selector: 'app-single-account',
   templateUrl: './single-account.component.html',
 })
 export class SingleAccountComponent implements OnInit {
-  constructor(private accountsService: AccountsService, private route: ActivatedRoute) {}
+  constructor(
+    private accountsService: AccountsService,
+    private route: ActivatedRoute,
+    private contractsService: ContractsService,
+  ) {}
 
   transactions: any[];
   account: any;
@@ -21,7 +26,7 @@ export class SingleAccountComponent implements OnInit {
     });
   }
 
-  onClickButton() {
-    alert('Hello!');
+  executeContract() {
+    this.accountsService.executeContractsForAccount(this.account._id, {});
   }
 }

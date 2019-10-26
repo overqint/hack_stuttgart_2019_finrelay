@@ -1,9 +1,13 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { AccountsRepository } from './accounts.repository';
+import { ContractExecutorService } from '../contracts/contract-executor.service';
 
 @Controller('accounts')
 export class AccountsController {
-  constructor(private accountsRepository: AccountsRepository) {}
+  constructor(
+    private accountsRepository: AccountsRepository,
+    private contractExecutorService: ContractExecutorService,
+  ) {}
 
   @Get(':accountId')
   async findOneById(@Param('accountId') accountId: string) {
@@ -18,5 +22,14 @@ export class AccountsController {
   @Get(':accountId/transactions')
   async getTransactionsByAccountId(@Param('accountId') accountId: string) {
     return this.accountsRepository.getTransactionsByAccountId(accountId);
+  }
+
+  @Post(':accountId/contracts/execute')
+  async executeContractById(
+    @Param('accountId') accountId: string,
+    @Body() payload,
+  ) {
+    const account = await this.accountsRepository.findOneById(accountId);
+    this.contractExecutorService.executeContractsForAccount(account);
   }
 }

@@ -13,9 +13,9 @@ export class ContractsService {
       .toPromise();
   }
 
-  async executeOneById(contractId: string) {
+  async executeOneById(contractId: string, payload: any) {
     return this.httpClient
-      .post(`http://localhost:3000/contracts/${contractId}/execute`, {})
+      .post(`http://localhost:3000/contracts/${contractId}/execute`, payload)
       .pipe(take(1))
       .toPromise();
   }

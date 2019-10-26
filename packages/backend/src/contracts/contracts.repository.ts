@@ -11,13 +11,21 @@ export class ContractsRepository {
   private _data = new Map();
 
   constructor() {
-    const foobar = {
-      _id: 'foobar',
-      name: 'FooBar!',
+    const foo = {
+      _id: 'foo',
+      name: 'Foo!',
       conditions: [],
       actions: [],
     };
-    this._data.set('foobar', foobar);
+
+    this._data.set(foo._id, foo);
+    const bar = {
+      _id: 'bar',
+      name: 'Bar!',
+      conditions: [],
+      actions: [],
+    };
+    this._data.set(bar._id, bar);
   }
 
   /**

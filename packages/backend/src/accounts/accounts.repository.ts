@@ -22,7 +22,7 @@ export class AccountsRepository {
         name: id,
         linkedAccount,
         // Id of linked contracts.
-        contracts: [],
+        contracts: ['foo', 'bar'],
       };
       this._data.set(id, account);
     };
@@ -57,7 +57,7 @@ export class AccountsRepository {
   async getTransactionsByAccountId(accountId: string) {
     const importedAccessToken = {
       DE10010000000000005211:
-        'eyJraWQiOiJyc2ExIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiIxMDAxMDAzNDA1MDAwMDEiLCJhenAiOiJkZXZlbG9wZXJwb3J0YWwiLCJpc3MiOiJodHRwczpcL1wvc2ltdWxhdG9yLWFwaS5kYi5jb21cL2d3XC9vaWRjXC8iLCJleHAiOjE1NzIwNzc0MDgsImlhdCI6MTU3MjA3MzgwOCwianRpIjoiMzIyNjFhN2EtYmJhZC00MmQ5LTg4NTItMGJkY2RlNTA4ZjI3In0.hnl-IL6ugdVIfY7GGsut5XQ-SmpBzT5sMIT1_WrUHGJZ0cAPMYJIHVbfrM1IxUOqxzLnOclYJqGB_pHStu-WPxtQ34qkGbtXxyEw8AxR7GiYv18H0ZD2eGSLy1TxcNzc2yJrMFB1VkwcEmZCDbPl-2HNEwTrxixc35CRsgAzDneSR1VP-tFnZqm1CqV4Hs76NA0CYbXqxJD8xP_c6GALr4CnRM6hP_Ny5x_nM_BNt5GxxHdivDx6Rg5QLA22JfDofS3pGB28LiLD8f2RrfuelwnxVEXtIVa_nvc8oCO8Sa2JcsH_Glpat78M4DlKFJOw_y-pPBG0fKwJydVV30Wf-w',
+        'eyJraWQiOiJyc2ExIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiIxMDAxMDAzNDA1MDAwMDEiLCJhenAiOiJkZXZlbG9wZXJwb3J0YWwiLCJpc3MiOiJodHRwczpcL1wvc2ltdWxhdG9yLWFwaS5kYi5jb21cL2d3XC9vaWRjXC8iLCJleHAiOjE1NzIwODExODYsImlhdCI6MTU3MjA3NzU4NywianRpIjoiNTc0ZjBkYWItOWYwNy00YWI0LWE3YmMtNjY3ZmE5ZTVkNGUxIn0.Q48PrKzhTR0AMFK46yXwwmzWAX5G7FfcKGm8hwpI5bQywGY-tDKw9cHN-Qkp-VGx_oGLVo8dFwx2jnIJZHbg9YIkoYoez4ilbRRIhs9W_loOx1s7hZ2E-V29ytc3rRub1FtajNzz6X17gYVwYbcHSDx7ph96-4_0vDVREY5HBpPz7C5P9qvbkV-BoDr7G9aSS0yBJnKHVwf7Y-HkSRIKillQT4HCA-ta1XHGfQrizXgZdBaMNerG2CqGLCIVYYTdLDIRElX9P8SavFjanuwlF8qBClYBKD3BcrZB8k2hCjM8kH0CHcOsxwkYOV4LClQilx5F61xEkHuE8gdwfHWUXg',
       DE10010000000000005250: '',
     };
     const account = await this.findOneById(accountId);

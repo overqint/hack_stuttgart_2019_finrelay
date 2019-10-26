@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { N8NWrapperService } from '../n8n-wrapper/n8n-wrapper.service';
 import { InputPlaceholderRepository } from '../n8n-wrapper/input-placeholder.repository';
 import { AccountsRepository } from '../accounts/accounts.repository';
+import { ContractsRepository } from './contracts.repository';
 
 @Injectable()
 export class ContractExecutorService {
@@ -9,11 +10,27 @@ export class ContractExecutorService {
     private n8nWrapperService: N8NWrapperService,
     private inputPlaceholderRepository: InputPlaceholderRepository,
     private accountsRepository: AccountsRepository,
+    private contractsRepository: ContractsRepository,
   ) {}
 
-  async execute(contract: any) {
-    console.log('[ContractExecutorService] executing contract:', contract);
-    const workflowData: any = await this.createWorkflow(contract);
+  async execute(contract: any, payload: any) {
+    console.log(
+      '[ContractExecutorService] executing contract:',
+      contract,
+      payload,
+    );
+    const transactions = await this.resolveTransactionsForPayload(payload);
+    const inputPlaceholder = Date.now().toString();
+    const resolvedPlaceholder = {
+      _id: inputPlaceholder,
+      contract,
+      transactions,
+    };
+    this.inputPlaceholderRepository.save(resolvedPlaceholder);
+    const workflowData: any = await this.createWorkflow(
+      contract,
+      inputPlaceholder,
+    );
     try {
       const result = await this.n8nWrapperService.runWorkflow(workflowData);
       console.log(
@@ -26,17 +43,21 @@ export class ContractExecutorService {
       console.error(rethrownErr);
     }
   }
-  async createWorkflow(contract: any) {
-    const transactions = (await this.accountsRepository.getTransactionsByAccountId(
-      'DBank1',
-    )).slice(0, 1);
-    const inputPlaceholder = Date.now().toString();
-    const resolvedPlaceholder = {
-      _id: inputPlaceholder,
-      contract,
-      transactions,
-    };
-    this.inputPlaceholderRepository.save(resolvedPlaceholder);
+  async resolveTransactionsForPayload(payload: any) {
+    let transactions = [];
+    for (const accountId of payload.accounts) {
+      const accountTransactions = await this.accountsRepository.getTransactionsByAccountId(
+        accountId,
+      );
+      transactions = [...transactions, ...accountTransactions];
+    }
+    console.log('transactions:', transactions);
+    return transactions;
+  }
+  async createWorkflow(contract: any, inputPlaceholder: string) {
+    if (!contract) {
+      throw new Error('Invalid argument: contract');
+    }
     const workflow = {
       name: 'simple',
       nodes: [
@@ -49,7 +70,7 @@ export class ContractExecutorService {
           typeVersion: 1,
           position: [250, 300],
         },
-        {
+        contract._id === 'foo' && {
           name: 'Function',
           type: 'n8n-nodes-base.functionItem',
           parameters: {
@@ -59,15 +80,14 @@ export class ContractExecutorService {
           typeVersion: 1,
           position: [400, 300],
         },
-        {
+        contract._id === 'bar' && {
           name: 'Send Email',
           type: 'n8n-nodes-base.emailSend',
           parameters: {
             fromEmail: 'ralph.greschner.dev@gmail.com',
             toEmail: 'ralph.greschner.dev@gmail.com',
             subject: 'Geile Sache',
-            text:
-              '=balbla {{$node["Start"].data.paymentReference}} am {{$node["Start"].data.valueDate}}',
+            text: `=Transaktion '{{$node["Start"].data.paymentReference}}' am {{$node["Start"].data.valueDate}} über {{$node["Start"].data.amount}} EUR.`,
           },
 
           typeVersion: 1,
@@ -76,7 +96,7 @@ export class ContractExecutorService {
             smtp: 'mail-default',
           },
         },
-      ],
+      ].filter(Boolean),
       connections: {},
       active: false,
       settings: {},
@@ -116,5 +136,15 @@ export class ContractExecutorService {
     workflow.connections = connections;
     console.log('workflow:', JSON.stringify(workflow, null, 2));
     return workflow;
+  }
+
+  async executeContractsForAccount(account: any) {
+    console.log('executeContractsForAccount');
+    const contracts = account.contracts;
+    for (const contractId of contracts) {
+      console.log('contract:', contractId);
+      const contract = await this.contractsRepository.findOneById(contractId);
+      await this.execute(contract, { accounts: [account._id] });
+    }
   }
 }
