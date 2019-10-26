@@ -1,21 +1,84 @@
 <nz-table #basicTable [nzData]="actions">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let action of basicTable.data">
-            <td> {{ action | json }}</td>
-            <td>
-                <button nz-button type="submit" nzType="primary" nzSize="large" (click)="removeAction(action)">
-                    -
-                  </button>
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
-    <button nz-button type="submit" nzType="primary" nzSize="large" (click)="addAction()">
-        +
-      </button>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let action of basicTable.data">
+      <td>
+        <nz-select [(ngModel)]="action.type" (ngModelChange)="onActionTypeChanged(action)" nzPlaceHolder="Choose">
+          <nz-option *ngFor="let validType of validActionTypes" [nzValue]="validType" [nzLabel]="validType"></nz-option>
+        </nz-select>
+      </td>
+      <td>
+        <div *ngIf="action.type === 'noop'">
+          No-op
+        </div>
+
+        <div *ngIf="action.type === 'e-mail'">
+          <form nz-form>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    type="email"
+                    nz-input
+                    [(ngModel)]="action.data.fromEmail"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    type="email"
+                    nz-input
+                    [(ngModel)]="action.data.toEmail"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    type="text"
+                    nz-input
+                    [(ngModel)]="action.data.subject"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <textarea
+                    type="text"
+                    nz-input
+                    [(ngModel)]="action.data.text"
+                    [ngModelOptions]="{ standalone: true }"
+                  ></textarea>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </div>
+        <div>
+          {{ action | json }}
+        </div>
+      </td>
+      <td>
+        <button nz-button type="submit" nzType="primary" nzSize="large" (click)="removeAction(action)">
+          -
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<button nz-button type="submit" nzType="primary" nzSize="large" (click)="addAction()">
+  +
+</button>

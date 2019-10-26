@@ -38,4 +38,14 @@ export class ContractsActionEditorComponent {
     this.contract.actions.push(NEW_ACTION);
     this.refreshActions();
   }
+
+  validActionTypes = [
+    'noop',
+    "e-mail"
+  ]
+
+  onActionTypeChanged(action) {
+    action.data = {};
+  }
+  
 }
