@@ -12,10 +12,16 @@
 </div>
 
 <div>
-  <h2>Actions</h2>
-<app-contracts-action-editor [contract]="contract"></app-contracts-action-editor>
-  
-</div>
+    <h2>Conditions</h2>
+  <app-contracts-condition-editor [contract]="contract"></app-contracts-condition-editor>
+    
+  </div>
+
+  <div>
+      <h2>Actions</h2>
+    <app-contracts-action-editor [contract]="contract"></app-contracts-action-editor>
+      
+    </div>
 
 <div>
   <button nz-button type="submit" nzType="primary" nzSize="large" (click)="save()">

@@ -16,6 +16,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { SingleAccountComponent } from './accounts/single-accounts.component';
 import { SingleContractComponent } from './contracts/single-contract.component';
 import { ContractsActionEditorComponent } from './contracts/contracts-action-editor.component';
+import { ContractsConditionEditorComponent } from './contracts/contracts-condition-editor.component';
 
 const COMPONENTS = [
   DashboardComponent,
@@ -35,7 +36,7 @@ const COMPONENTS_NOROUNT = [];
 
 @NgModule({
   imports: [SharedModule, RouteRoutingModule],
-  declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT, ContractsActionEditorComponent],
+  declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT, ContractsActionEditorComponent, ContractsConditionEditorComponent],
   entryComponents: COMPONENTS_NOROUNT,
 })
 export class RoutesModule {}

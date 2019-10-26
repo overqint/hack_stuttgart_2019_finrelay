@@ -1,0 +1,87 @@
+<nz-table #basicTable [nzData]="conditions">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th>Condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let condition of basicTable.data">
+      <td>
+        <nz-select
+          [(ngModel)]="condition.type"
+          (ngModelChange)="onConditionTypeChanged(condition)"
+          nzPlaceHolder="Choose"
+        >
+          <nz-option
+            *ngFor="let validType of validConditionTypes"
+            [nzValue]="validType"
+            [nzLabel]="validType"
+          ></nz-option>
+        </nz-select>
+      </td>
+      <td>
+        <div *ngIf="condition.type === 'noop'">
+          No-op
+        </div>
+
+        <div *ngIf="condition.type === 'check-amount'">
+          <form nz-form>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <nz-select [(ngModel)]="condition.data.operation" nzPlaceHolder="Choose">
+                    <nz-option nzValue="eq" nzLabel="equals"></nz-option>
+                    <nz-option nzValue="lt" nzLabel="less than"></nz-option>
+                    <nz-option nzValue="gt" nzLabel="greater than"></nz-option>
+                  </nz-select>
+                </nz-input-group>
+              </nz-form-control>
+
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    type="number"
+                    nz-input
+                    [(ngModel)]="condition.data.amount"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </div>
+
+        <div *ngIf="condition.type === 'account-iban-equals'">
+          <form nz-form>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    type="text"
+                    nz-input
+                    [(ngModel)]="condition.data.iban"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </div>
+
+        <div>
+          {{ condition | json }}
+        </div>
+      </td>
+      <td>
+        <button nz-button type="submit" nzType="primary" nzSize="large" (click)="removeCondition(condition)">
+          -
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<button nz-button type="submit" nzType="primary" nzSize="large" (click)="addCondition()">
+  +
+</button>
