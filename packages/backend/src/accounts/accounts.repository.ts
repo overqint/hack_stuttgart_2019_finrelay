@@ -12,21 +12,22 @@ export class AccountsRepository {
   private _data = new Map();
 
   constructor() {
-    const mockData = id => {
-      const linkedAccount = {
-        iban:
-          id === 'DBank1' ? 'DE10010000000000005211' : 'DE10010000000000005250',
-      };
-      const account = {
-        _id: id,
-        name: id,
-        type: 'iban',
-        linkedAccount,
-      };
-      this._data.set(id, account);
-    };
-    mockData('DBank1');
-    mockData('DBank2');
+    this.save({
+      _id: "SpkTest",
+      name: "SPK-1234",
+      type: 'iban-sparkasse',
+      linkedAccount: {
+        iban: '12345' 
+      }
+    });
+    this.save({
+      _id: "DE10010000000000005211",
+      name: "DB-5211",
+      type: 'iban',
+      linkedAccount: {
+        iban: 'DE10010000000000005211'
+      }
+    });
   }
 
   /**
