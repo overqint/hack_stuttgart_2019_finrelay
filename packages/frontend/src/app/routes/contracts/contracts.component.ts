@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { _HttpClient } from '@delon/theme';
+import { ContractsService } from '@shared/contracts.service';
 
 @Component({
   selector: 'app-contracts',
   templateUrl: './contracts.component.html',
 })
 export class ContractsComponent implements OnInit {
-  constructor(private http: _HttpClient) {}
+  contracts: any[];
+  constructor(private contractsService: ContractsService) {}
 
-  ngOnInit() {}
-
-  onClickButton() {
-    alert('Hello!');
+  async ngOnInit() {
+    this.contracts = await this.contractsService.findAll();
   }
 }

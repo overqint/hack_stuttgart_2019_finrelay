@@ -14,12 +14,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
 import { AccountsService } from './accounts.service';
+import { ContractsService } from './contracts.service';
 const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
 // #endregion
 
 // #region your componets & directives
 const COMPONENTS = [];
 const DIRECTIVES = [];
+const PROVIDERS = [AccountsService, ContractsService];
 // #endregion
 
 @NgModule({
@@ -40,7 +42,7 @@ const DIRECTIVES = [];
     ...COMPONENTS,
     ...DIRECTIVES,
   ],
-  providers: [AccountsService],
+  providers: PROVIDERS,
   exports: [
     CommonModule,
     FormsModule,

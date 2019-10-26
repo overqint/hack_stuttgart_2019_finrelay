@@ -11,13 +11,7 @@ export class ContractsController {
   }
 
   @Get()
-  findAll(): any[] | PromiseLike<any[]> {
-    return [
-      {
-        id: 'DBank1',
-        name: 'Deutsche Bank TEST',
-        type: 'iban',
-      },
-    ];
+  findAll() {
+    return this.contractsRepository.findAll();
   }
 }

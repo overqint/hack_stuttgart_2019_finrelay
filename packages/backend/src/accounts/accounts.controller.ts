@@ -11,14 +11,8 @@ export class AccountsController {
   }
 
   @Get()
-  findAll(): any[] | PromiseLike<any[]> {
-    return [
-      {
-        id: 'DBank1',
-        name: 'Deutsche Bank TEST',
-        type: 'iban',
-      },
-    ];
+  findAll() {
+    return this.accountsRepository.findAll();
   }
 
   @Get(':accountId/transactions')

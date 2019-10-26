@@ -1,3 +1,26 @@
 <page-header></page-header>
 
 <h1>Contracts</h1>
+
+<nz-table #basicTable [nzData]="contracts">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contract of contracts">
+      <td>
+        <a [href]="'#/contracts/' + contract.id">{{ contract.name }}</a>
+      </td>
+      <td>{{ contract.type }}</td>
+      <td>
+        <a>Action</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -13,8 +13,4 @@ export class AccountsComponent implements OnInit {
   async ngOnInit() {
     this.accounts = await this.accountsService.findAll();
   }
-
-  onClickButton() {
-    alert('Hello!');
-  }
 }

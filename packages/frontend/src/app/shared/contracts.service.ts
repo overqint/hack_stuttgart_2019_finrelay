@@ -3,26 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 
 @Injectable()
-export class AccountsService {
+export class ContractsService {
   constructor(private httpClient: HttpClient) {}
 
-  async findOneById(accountId: string) {
+  async findOneById(contractId: string) {
     return this.httpClient
-      .get(`http://localhost:3000/accounts/${accountId}`)
+      .get(`http://localhost:3000/contracts/${contractId}`)
       .pipe(take(1))
       .toPromise();
   }
 
-  async getTransactionsByAccountId(accountId: string) {
-    return this.httpClient
-      .get(`http://localhost:3000/accounts/${accountId}/transactions`)
-      .pipe(take(1))
-      .toPromise() as any;
-  }
-
   async findAll() {
     return this.httpClient
-      .get(`http://localhost:3000/accounts`)
+      .get(`http://localhost:3000/contracts`)
       .pipe(take(1))
       .toPromise() as any;
   }

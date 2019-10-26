@@ -14,10 +14,12 @@ import { UserLockComponent } from './passport/lock/lock.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { SingleAccountComponent } from './accounts/single-accounts.component';
+import { SingleContractComponent } from './contracts/single-contract.component';
 
 const COMPONENTS = [
   DashboardComponent,
   ContractsComponent,
+  SingleContractComponent,
   AccountsComponent,
   SingleAccountComponent,
   // passport pages

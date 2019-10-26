@@ -10,6 +10,15 @@ export class ContractsRepository {
    */
   private _data = new Map();
 
+  constructor() {
+    const foobar = {
+      _id: 'foobar',
+      name: 'FooBar!',
+      conditions: [],
+    };
+    this._data.set('foobar', foobar);
+  }
+
   /**
    * Find all instances of stored data.
    */
