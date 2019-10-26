@@ -13,15 +13,17 @@ import { CallbackComponent } from './callback/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { AccountsComponent } from './accounts/accounts.component';
-import { SingleAccountComponent } from './accounts/single-accounts.component';
+import { SingleAccountComponent } from './accounts/single-account.component';
 import { SingleContractComponent } from './contracts/single-contract.component';
 import { ContractsActionEditorComponent } from './contracts/contracts-action-editor.component';
 import { ContractsConditionEditorComponent } from './contracts/contracts-condition-editor.component';
+import { CreateAccountComponent } from './accounts/create-account.component';
 
 const COMPONENTS = [
   DashboardComponent,
   ContractsComponent,
   SingleContractComponent,
+  CreateAccountComponent,
   AccountsComponent,
   SingleAccountComponent,
   // passport pages

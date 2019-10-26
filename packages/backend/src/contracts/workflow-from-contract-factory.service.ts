@@ -21,7 +21,10 @@ export class WorkflowFromContractFactoryService {
         nodes.push({
           name: 'Send Email',
           type: 'n8n-nodes-base.emailSend',
-          parameters: action.data,
+          parameters: {
+            fromEmail: 'ralph.greschner.dev@gmail.com',
+            ...action.data
+          },
           typeVersion: 1,
           position: [400, 470],
           credentials: {

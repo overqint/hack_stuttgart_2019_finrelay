@@ -33,6 +33,8 @@ export class AccountsController {
 
   @Post()
   async createAccount(@Body() payload) {
+    if (!payload._id) payload._id = Date.now().toString();
     await this.accountsRepository.save(payload);
+    return payload;
   }
 }
