@@ -64,4 +64,12 @@ export class ContractsRepository {
   public async save(instance) {
     this._data.set(instance._id, instance);
   }
+  /**
+   * Delete instance from hashmap.
+   * @param instance Instance to  delete.
+   */
+  public async delete(instance_id) {
+    return this._data.delete(instance_id);
+  }
+
 }
