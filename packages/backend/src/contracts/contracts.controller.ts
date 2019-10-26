@@ -20,7 +20,10 @@ export class ContractsController {
   }
 
   @Post(':contractId')
-  async updateOne(@Param('contractId') contractId: string, @Body() contract) {
+  async updateOneById(
+    @Param('contractId') contractId: string,
+    @Body() contract,
+  ) {
     return this.contractsRepository.save(contract);
   }
 

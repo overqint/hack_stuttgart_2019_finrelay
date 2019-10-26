@@ -16,11 +16,10 @@ export class SingleContractComponent implements OnInit {
     this.route.params.subscribe(async params => {
       const contractId = params.contractId;
       this.contract = await this.contractsService.findOneById(contractId);
-      debugger;
     });
   }
 
-  execute() {
-    this.contractsService.executeOneById(this.contract._id);
+  async save() {
+    await this.contractsService.updateOneById(this.contract._id, this.contract);
   }
 }
