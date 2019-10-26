@@ -6,11 +6,15 @@ import {
   INodeTypes,
   INodeType,
 } from 'n8n-workflow';
+import { InputPlaceholderRepository } from './input-placeholder.repository';
 
 export const FunctionNode = new (require('n8n-nodes-base/dist/nodes/Function.node')).Function();
+export const FunctionItemNode = new (require('n8n-nodes-base/dist/nodes/FunctionItem.node')).FunctionItem();
+export const EmailSendNode = new (require('n8n-nodes-base/dist/nodes/EmailSend.node')).EmailSend();
 export const ExecuteCommandNode = new (require('n8n-nodes-base/dist/nodes/ExecuteCommand.node')).ExecuteCommand();
 
-const resolveInputId = (id: string) => ({id, foo: 'bar', ts: new Date()});
+const resolveInputPlaceholder = (id: string) =>
+  InputPlaceholderRepository._data.get(id);
 
 export class NodeTypesClass implements INodeTypes {
   nodeTypes: INodeTypeData = {
@@ -86,7 +90,7 @@ export class NodeTypesClass implements INodeTypes {
           ],
         },
         async execute(
-          this: IExecuteFunctions
+          this: IExecuteFunctions,
         ): Promise<INodeExecutionData[][]> {
           // const itemsInput2 = this.getInputData(1);
           const returnData: INodeExecutionData[] = [];
@@ -133,49 +137,58 @@ export class NodeTypesClass implements INodeTypes {
         },
       },
     },
+    'n8n-nodes-base.emailSend': { sourcePath: '', type: EmailSendNode },
     'n8n-nodes-base.function': { sourcePath: '', type: FunctionNode },
+    'n8n-nodes-base.functionItem': { sourcePath: '', type: FunctionItemNode },
     'n8n-nodes-base.executeCommand': {
       sourcePath: '',
       type: ExecuteCommandNode,
     },
     'n8n-nodes-base.start': {
-        sourcePath: '',
-        type: {
-          description: {
-            displayName: 'Start',
-            name: 'start',
-            group: ['input'],
-            version: 1,
-            description: 'Starts the workflow execution from this node',
-            defaults: {
-              name: 'Start',
-              color: '#553399',
+      sourcePath: '',
+      type: {
+        description: {
+          displayName: 'Start',
+          name: 'start',
+          group: ['input'],
+          version: 1,
+          description: 'Starts the workflow execution from this node',
+          defaults: {
+            name: 'Start',
+            color: '#553399',
+          },
+          inputs: [],
+          outputs: ['main'],
+          properties: [
+            {
+              displayName: 'Binary Property',
+              name: 'inputPlaceholder',
+              type: 'string',
+              default: '',
+              required: false,
+              description:
+                'Name of the binary property from which to<br />read the PDF file.',
             },
-            inputs: [],
-            outputs: ['main'],
-                properties: [
-                    {
-                        displayName: 'Binary Property',
-                        name: 'inputId',
-                        type: 'string',
-                        default: '',
-                        required: false,
-                        description: 'Name of the binary property from which to<br />read the PDF file.',
-                    },
-                ]
-          },
-          execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-            const items = this.getInputData();
-            const inputId = this.getNodeParameter('inputId', NaN) as string;
-            console.log('inputId', inputId);
-            items.length = 0;
-              const json: any = resolveInputId(inputId);
-              console.log((json.ts.getTime()));
-            items.push({json});                                                  
-            return this.prepareOutputData(items);
-          },
+          ],
+        },
+        execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+          const items = this.getInputData();
+          const inputPlaceholder = this.getNodeParameter(
+            'inputPlaceholder',
+            NaN,
+          ) as string;
+          console.log('inputPlaceholder', inputPlaceholder);
+          items.length = 0;
+          const resolvedInput: any = resolveInputPlaceholder(inputPlaceholder);
+          items.push(
+            ...resolvedInput.transactions.map(transaction => ({
+              json: transaction,
+            })),
+          );
+          return this.prepareOutputData(items);
         },
       },
+    },
   };
   async init(nodeTypes: INodeTypeData): Promise<void> {}
   getAll(): INodeType[] {

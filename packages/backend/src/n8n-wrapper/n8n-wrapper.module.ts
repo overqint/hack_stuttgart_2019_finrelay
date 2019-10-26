@@ -1,9 +1,11 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { N8NWrapperService } from './n8n-wrapper.service';
 import { TEST_WORKFLOW_DATA } from './test-workflow-data.const';
+import { InputPlaceholderRepository } from './input-placeholder.repository';
 
 @Module({
-  providers: [N8NWrapperService],
+  providers: [N8NWrapperService, InputPlaceholderRepository],
+  exports: [N8NWrapperService, InputPlaceholderRepository],
 })
 export class N8NWrapperModule implements OnModuleInit {
   async onModuleInit() {
