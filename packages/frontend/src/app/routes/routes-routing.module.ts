@@ -30,7 +30,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
-      { path: 'go-pro', component: GoPremiumComponent, data: { title: 'Go Pro' } },
+      { path: 'go-premium', component: GoPremiumComponent, data: { title: 'Go Pro' } },
       { path: 'contracts', component: ContractsComponent, data: { title: 'Contracts' } },
       { path: 'contracts/:contractId', component: SingleContractComponent, data: { title: 'Contracts' } },
       { path: 'accounts', component: AccountsComponent, data: { title: 'Accounts' } },

@@ -129,11 +129,7 @@ export class StartupService {
             text: 'Dashboard',
             link: '/dashboard',
             icon: { type: 'icon', value: 'appstore' },
-          },   {
-            text: 'Go Pro',
-            link: '/go-pro',
-            icon: { type: 'icon', value: 'appstore' },
-          },
+          },  
           {
             text: 'Contracts',
             link: '/contracts',
@@ -144,6 +140,11 @@ export class StartupService {
             link: '/accounts',
             icon: { type: 'icon', value: 'appstore' },
             children: accountsChildren,
+          },
+          {
+            text: 'Go Premium',
+            link: '/go-premium',
+            icon: { type: 'icon', value: 'appstore' },
           },
         ] as any[],
       },
