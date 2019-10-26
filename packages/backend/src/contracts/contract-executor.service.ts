@@ -22,7 +22,11 @@ export class ContractExecutorService {
       payload,
     );
     payload.accounts = contract.accounts;
-    const transactions = await this.resolveTransactionsForPayload(payload);
+    let transactions = await this.resolveTransactionsForPayload(payload);
+    transactions = transactions.filter(transaction =>
+      this.filterExecutableTransactions(transaction, contract.conditions),
+    );
+    console.log('transactions.length:', transactions.length);
     const inputPlaceholder = Date.now().toString();
     const resolvedPlaceholder = {
       _id: inputPlaceholder,
@@ -46,6 +50,31 @@ export class ContractExecutorService {
       console.error(rethrownErr);
     }
   }
+  filterExecutableTransactions(transaction: any, conditions: any) {
+    for (const condition of conditions) {
+      console.log(condition);
+      if (condition.type === 'account-iban-equals') {
+        if (transaction.originIban !== condition.data.iban) { return false; }
+      }
+      if (condition.type === 'counter-party-name-contains') {
+        if (transaction.counterPartyName.toLowerCase().indexOf(condition.data.counterPartyName.toLowerCase()) < 0) { return false; }
+      }
+      if (condition.type === 'check-amount') {
+        switch (condition.data.operation) {
+          case 'eq':
+            if (transaction.amount !== condition.data.amount) { return false; }
+            break;
+          case 'lt':
+            if (transaction.amount >= condition.data.amount) { return false; }
+            break;
+          case 'gt':
+            if (transaction.amount < condition.data.amount) { return false; }
+            break;
+        }
+      }
+    }
+    return true;
+  }
   async resolveTransactionsForPayload(payload: any) {
     let transactions = [];
     if (!payload.accounts) {
@@ -54,7 +83,7 @@ export class ContractExecutorService {
     if (payload.accounts === '*') {
       payload.accounts = await this.accountsRepository.distinctAccountIds();
     }
-    console.log("Resolving transacctions.", payload.accounts);
+    console.log('Resolving transacctions.', payload.accounts);
     for (const accountId of payload.accounts) {
       try {
         const accountTransactions = await this.accountsRepository.getTransactionsByAccountId(
@@ -66,7 +95,7 @@ export class ContractExecutorService {
         continue;
       }
     }
-    //console.log('transactions:', transactions);
+    // console.log('transactions:', transactions);
     return transactions;
   }
 

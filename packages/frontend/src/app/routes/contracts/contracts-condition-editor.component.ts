@@ -42,7 +42,8 @@ export class ContractsConditionEditorComponent {
   validConditionTypes = [
     'noop',
     "account-iban-equals",
-    "check-amount"
+    'counter-party-name-contains',
+    "check-amount",
   ]
 
   onConditionTypeChanged(condition) {

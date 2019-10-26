@@ -31,7 +31,7 @@
             <nz-form-item>
               <nz-form-control nzErrorTip="Please input your username!">
                 <nz-input-group nzPrefixIcon="user">
-                  <nz-select [(ngModel)]="condition.data.operation" nzPlaceHolder="Choose">
+                  <nz-select [(ngModel)]="condition.data.operation" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose">
                     <nz-option nzValue="eq" nzLabel="equals"></nz-option>
                     <nz-option nzValue="lt" nzLabel="less than"></nz-option>
                     <nz-option nzValue="gt" nzLabel="greater than"></nz-option>
@@ -54,21 +54,38 @@
         </div>
 
         <div *ngIf="condition.type === 'account-iban-equals'">
-          <form nz-form>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your username!">
-                <nz-input-group nzPrefixIcon="user">
-                  <input
-                    type="text"
-                    nz-input
-                    [(ngModel)]="condition.data.iban"
-                    [ngModelOptions]="{ standalone: true }"
-                  />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-          </form>
-        </div>
+            <form nz-form>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Please input your username!">
+                  <nz-input-group nzPrefixIcon="user">
+                    <input
+                      type="text"
+                      nz-input
+                      [(ngModel)]="condition.data.iban"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </div>
+
+          <div *ngIf="condition.type === 'counter-party-name-contains'">
+              <form nz-form>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Please input your username!">
+                    <nz-input-group nzPrefixIcon="user">
+                      <input
+                        type="text"
+                        nz-input
+                        [(ngModel)]="condition.data.counterPartyName"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </form>
+            </div>
 
         <div>
           {{ condition | json }}
