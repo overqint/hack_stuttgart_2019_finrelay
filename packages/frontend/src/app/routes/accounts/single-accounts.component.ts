@@ -10,7 +10,6 @@ import { AccountsService } from '@shared/accounts.service';
 export class SingleAccountComponent implements OnInit {
   constructor(private accountsService: AccountsService, private route: ActivatedRoute) {}
 
-  accountId: string;
   transactions: any[];
   account: any;
 

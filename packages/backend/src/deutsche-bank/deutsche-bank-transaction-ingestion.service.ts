@@ -12,6 +12,7 @@ export class DeutscheBankTransactionIngestionService {
 
   public async initialize() {
     console.log('Initializing DeutscheBankTransactionIngestionService...');
+    /*
     setInterval(() => {
       const df = new DataFrame(TEST_TRANSACTION_DATA.transactions).take(5);
       console.log(df.toString());
@@ -25,6 +26,7 @@ export class DeutscheBankTransactionIngestionService {
         this._nextSubject.next(event);
       }
     }, 5000);
+    */
     console.log('Initialized DeutscheBankTransactionIngestionService.');
   }
 

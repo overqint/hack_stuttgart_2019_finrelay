@@ -13,6 +13,13 @@ export class ContractsService {
       .toPromise();
   }
 
+  async executeOneById(contractId: string) {
+    return this.httpClient
+      .post(`http://localhost:3000/contracts/${contractId}/execute`, {})
+      .pipe(take(1))
+      .toPromise();
+  }
+
   async findAll() {
     return this.httpClient
       .get(`http://localhost:3000/contracts`)

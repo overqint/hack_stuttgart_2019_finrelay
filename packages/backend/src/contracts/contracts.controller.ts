@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { ContractsRepository } from './contracts.repository';
 
 @Controller('contracts')
@@ -13,5 +13,11 @@ export class ContractsController {
   @Get()
   findAll() {
     return this.contractsRepository.findAll();
+  }
+
+  @Post(':contractId/execute')
+  async executeContractById(@Param('contractId') contractId: string) {
+    const contract = this.contractsRepository.findOneById(contractId);
+    console.log('executing contract:', contract);
   }
 }

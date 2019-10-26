@@ -10,8 +10,6 @@ import { ContractsService } from '@shared/contracts.service';
 export class SingleContractComponent implements OnInit {
   constructor(private contractsService: ContractsService, private route: ActivatedRoute) {}
 
-  contractId: string;
-  transactions: any[];
   contract: any;
 
   ngOnInit() {
@@ -22,7 +20,7 @@ export class SingleContractComponent implements OnInit {
     });
   }
 
-  onClickButton() {
-    alert('Hello!');
+  execute() {
+    this.contractsService.executeOneById(this.contract._id);
   }
 }
