@@ -1,9 +1,9 @@
 # finrelay-prep
 FinRelay
 
-First install the dependencies in finrelay-prep/packages/common/
+First install the dependencies: change to `finrelay-prep/packages/common/` directory
 <br/>
-with `npm install`
+execute: `npm install`
 
 Then you can install the finrelay-prep/packages/backend/
 <br/>
