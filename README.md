@@ -13,7 +13,7 @@ Install with the command:
 <br/>
 `npm install`
 
-#### Start Backend
+### Start Backend
 For running the backend execute:
 <br/>
 `npm run start`
@@ -22,15 +22,17 @@ For running the backend execute:
 `sudo npm i -g @angular/cli`
 
 ## Frontend
-To install the  angular frontend change to the directory finrelay-prep/packages/frontend/
+### Install Frontend
+To install the  angular frontend change to the directory `finrelay-prep/packages/frontend/`
 <br/>
-install with command `npm install`
+install with command: `npm install`
 <br/>
-start with
+#### Start Frontend
+start the frontend with the command: `ng s -o`
 <br/>
 (command explanation: angular serve and open default browser for viewing)
 <br/>
-`ng s -o`
+
 <br/>
 Open the browser (if not already opened);
 <br/>
