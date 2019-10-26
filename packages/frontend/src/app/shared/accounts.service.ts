@@ -26,11 +26,4 @@ export class AccountsService {
       .pipe(take(1))
       .toPromise() as any;
   }
-
-  async executeContractsForAccount(accountId: string, payload: any) {
-    return this.httpClient
-      .post(`http://localhost:3000/accounts/${accountId}/contracts/execute`, payload)
-      .pipe(take(1))
-      .toPromise();
-  }
 }

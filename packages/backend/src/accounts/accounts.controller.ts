@@ -24,15 +24,6 @@ export class AccountsController {
     return this.accountsRepository.getTransactionsByAccountId(accountId);
   }
 
-  @Post(':accountId/contracts/execute')
-  async executeContractById(
-    @Param('accountId') accountId: string,
-    @Body() payload,
-  ) {
-    const account = await this.accountsRepository.findOneById(accountId);
-    this.contractExecutorService.executeContractsForAccount(account);
-  }
-
   @Post(':accountId/contracts')
   async setContracts(@Param('accountId') accountId: string, @Body() payload) {
     const account = await this.accountsRepository.findOneById(accountId);

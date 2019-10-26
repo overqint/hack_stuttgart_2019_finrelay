@@ -19,6 +19,11 @@ export class ContractsController {
     return this.contractsRepository.findAll();
   }
 
+  @Post(':contractId')
+  async updateOne(@Param('contractId') contractId: string, @Body() contract) {
+    return this.contractsRepository.save(contract);
+  }
+
   @Post(':contractId/execute')
   async executeContractById(
     @Param('contractId') contractId: string,

@@ -47,11 +47,22 @@ export class ContractExecutorService {
   }
   async resolveTransactionsForPayload(payload: any) {
     let transactions = [];
+    if (!payload.accounts) {
+      payload.accounts = '*';
+    }
+    if (payload.accounts === '*') {
+      payload.accounts = await this.accountsRepository.distinctAccountIds();
+    }
     for (const accountId of payload.accounts) {
-      const accountTransactions = await this.accountsRepository.getTransactionsByAccountId(
-        accountId,
-      );
-      transactions = [...transactions, ...accountTransactions];
+      try {
+        const accountTransactions = await this.accountsRepository.getTransactionsByAccountId(
+          accountId,
+        );
+        transactions = [...transactions, ...accountTransactions];
+      } catch (err) {
+        console.warn(`Could not get transactions for account ${accountId}.`);
+        continue;
+      }
     }
     console.log('transactions:', transactions);
     return transactions;

@@ -57,7 +57,7 @@ export class AccountsRepository {
   async getTransactionsByAccountId(accountId: string) {
     const importedAccessToken = {
       DE10010000000000005211:
-        'eyJraWQiOiJyc2ExIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiIxMDAxMDAzNDA1MDAwMDEiLCJhenAiOiJkZXZlbG9wZXJwb3J0YWwiLCJpc3MiOiJodHRwczpcL1wvc2ltdWxhdG9yLWFwaS5kYi5jb21cL2d3XC9vaWRjXC8iLCJleHAiOjE1NzIwODExODYsImlhdCI6MTU3MjA3NzU4NywianRpIjoiNTc0ZjBkYWItOWYwNy00YWI0LWE3YmMtNjY3ZmE5ZTVkNGUxIn0.Q48PrKzhTR0AMFK46yXwwmzWAX5G7FfcKGm8hwpI5bQywGY-tDKw9cHN-Qkp-VGx_oGLVo8dFwx2jnIJZHbg9YIkoYoez4ilbRRIhs9W_loOx1s7hZ2E-V29ytc3rRub1FtajNzz6X17gYVwYbcHSDx7ph96-4_0vDVREY5HBpPz7C5P9qvbkV-BoDr7G9aSS0yBJnKHVwf7Y-HkSRIKillQT4HCA-ta1XHGfQrizXgZdBaMNerG2CqGLCIVYYTdLDIRElX9P8SavFjanuwlF8qBClYBKD3BcrZB8k2hCjM8kH0CHcOsxwkYOV4LClQilx5F61xEkHuE8gdwfHWUXg',
+        'eyJraWQiOiJyc2ExIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiIxMDAxMDAzNDA1MDAwMDEiLCJhenAiOiJkZXZlbG9wZXJwb3J0YWwiLCJpc3MiOiJodHRwczpcL1wvc2ltdWxhdG9yLWFwaS5kYi5jb21cL2d3XC9vaWRjXC8iLCJleHAiOjE1NzIwODQ0MjAsImlhdCI6MTU3MjA4MDgyMSwianRpIjoiNmEzODc5NjItMDkzOS00OTNlLThhN2EtNzY2YWNlZGRlZGE3In0.UhgaWKdg8zbHU2xz_v04sa8ItMhhlDE71u3GNs4zb5dMCsPFpF7tmn1ZxSq2XD9_yXL-SKyvQeKNH5qrNnlcsd5jKrhtVTZZrp7qHYvIaqDHTOXhYjOXI1zhJvedXHjG6v5LTepk-AgBVlN3mh1fe0GuMlvk6ZJbUqJ0OipnPH1mw0w5AzGjRwZQFsgtvmnlnK96N2dJSUKhRpjIZ-2VO7t3t77tMqa6lq6pTiLpCUItznm4L3buwz6ecxyX0scKAvClnRtW-Cel2q3yFpcD3qWmtnDZm9eTNtVeLsGtEE5rj14rhz2PR85uTrEPRV9rYF3GZ4Sm1h1lA7-8-DUppA',
       DE10010000000000005250: '',
     };
     const account = await this.findOneById(accountId);
@@ -69,5 +69,9 @@ export class AccountsRepository {
       .transactions;
     console.log('Got linked account transactions from DB API');
     return transactions;
+  }
+
+  async distinctAccountIds() {
+    return (await this.findAll()).map(e => e._id);
   }
 }

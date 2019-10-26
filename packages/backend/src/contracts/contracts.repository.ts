@@ -16,6 +16,7 @@ export class ContractsRepository {
       name: 'Foo!',
       conditions: [],
       actions: [],
+      accounts: [],
     };
 
     this._data.set(foo._id, foo);
@@ -24,6 +25,7 @@ export class ContractsRepository {
       name: 'Bar!',
       conditions: [],
       actions: [],
+      accounts: [],
     };
     this._data.set(bar._id, bar);
   }
