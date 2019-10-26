@@ -5,17 +5,23 @@ First install the dependencies: change to `finrelay-prep/packages/common/` direc
 <br/>
 execute: `npm install`
 
-Then you can install the finrelay-prep/packages/backend/
+## Backend:
+### Install Backend
+Go to the `finrelay-prep/packages/backend/` directory
 <br/>
-with `npm install`
+Install with the command:
+<br/>
+`npm install`
 
+#### Start Backend
 For running the backend execute:
 <br/>
 `npm run start`
 
-Install angular on your system:
+## Install angular on your system:
 `sudo npm i -g @angular/cli`
 
+## Frontend
 To install the  angular frontend change to the directory finrelay-prep/packages/frontend/
 <br/>
 install with command `npm install`
