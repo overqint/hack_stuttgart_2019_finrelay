@@ -66,7 +66,8 @@ export class ContractExecutorService {
             fromEmail: 'ralph.greschner.dev@gmail.com',
             toEmail: 'ralph.greschner.dev@gmail.com',
             subject: 'Geile Sache',
-            text: '=balbla {{$node["Start"].data.id}}',
+            text:
+              '=balbla {{$node["Start"].data.paymentReference}} am {{$node["Start"].data.valueDate}}',
           },
 
           typeVersion: 1,
