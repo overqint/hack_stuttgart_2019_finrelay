@@ -9,6 +9,7 @@ import { AccountsRepository } from './accounts/accounts.repository';
 import { ContractsController } from './contracts/contracts.controller';
 import { ContractsRepository } from './contracts/contracts.repository';
 import { ContractExecutorService } from './contracts/contract-executor.service';
+import { WorkflowFromContractFactoryService } from './contracts/workflow-from-contract-factory.service';
 
 @Module({
   imports: [DeutscheBankModule, N8NWrapperModule],
@@ -18,6 +19,7 @@ import { ContractExecutorService } from './contracts/contract-executor.service';
     AccountsRepository,
     ContractsRepository,
     ContractExecutorService,
+    WorkflowFromContractFactoryService,
   ],
 })
 export class AppModule {}
