@@ -12,6 +12,7 @@ import { I18NService } from '../i18n/i18n.service';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ICONS } from '../../../style-icons';
+import { AccountsService } from '@shared/accounts.service';
 
 /**
  * Used for application startup
@@ -19,6 +20,9 @@ import { ICONS } from '../../../style-icons';
  */
 @Injectable()
 export class StartupService {
+
+  menuItems: any[];
+
   constructor(
     iconSrv: NzIconService,
     private menuService: MenuService,
@@ -30,6 +34,7 @@ export class StartupService {
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private httpClient: HttpClient,
     private injector: Injector,
+    private accountsService: AccountsService
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
@@ -80,7 +85,24 @@ export class StartupService {
     });
   }
 
-  private viaMock(resolve: any, reject: any) {
+  private async createAccountsChildren() {
+    const accounts = await this.accountsService.findAll();
+    const actualAccountsChildren = accounts.map((account) => ( {
+      text: account.name,
+      link: `/accounts/${account._id}`,
+      icon: { type: 'icon', value: account.type === "iban" ? 'bank' : "dollar" },
+    }));
+    return [
+      ...actualAccountsChildren,
+      {
+        text: 'Create',
+        link: '/accounts/create',
+        icon: { type: 'icon', value: 'plus' },
+      },
+    ];
+  }
+
+  private async viaMock(resolve: any, reject: any) {
     // const tokenData = this.tokenService.get();
     // if (!tokenData.token) {
     //   this.injector.get(Router).navigateByUrl('/passport/login');
@@ -105,22 +127,8 @@ export class StartupService {
     // ACL: Set the permissions to full, https://ng-alain.com/acl/getting-started
     this.aclService.setFull(true);
     // Menu data, https://ng-alain.com/theme/menu
-    const actualAccountsChildren = [
-      {
-        text: 'DBank1',
-        link: '/accounts/DBank1',
-        icon: { type: 'icon', value: 'rocket' },
-      },
-    ];
-    const accountsChildren = [
-      ...actualAccountsChildren,
-      {
-        text: 'Manage',
-        link: '/accounts',
-        icon: { type: 'icon', value: 'rocket' },
-      },
-    ];
-    const menuItems = [
+    const accountsChildren = await this.createAccountsChildren();
+    this.menuItems = [
       {
         text: 'Main',
         group: true,
@@ -129,17 +137,11 @@ export class StartupService {
             text: 'Dashboard',
             link: '/dashboard',
             icon: { type: 'icon', value: 'dashboard' },
-          },  
+          },
           {
             text: 'Contracts',
             link: '/contracts',
             icon: { type: 'icon', value: 'book' },
-          },
-          {
-            text: 'Accounts',
-            link: '/accounts',
-            icon: { type: 'icon', value: 'bank' },
-            children: accountsChildren,
           },
           {
             text: 'Go Premium',
@@ -148,29 +150,13 @@ export class StartupService {
           },
         ] as any[],
       },
+      {
+        text: 'Accounts',
+        group: true,
+        children: accountsChildren,
+      },
     ];
-    this.menuService.add(menuItems);
-    setTimeout(() => {
-      console.log(menuItems);
-      actualAccountsChildren.push({
-        text: 'DBank2',
-        link: '/accounts/DBank2',
-        icon: { type: 'icon', value: 'rocket' },
-      });
-      const accountsChildren = [
-        ...actualAccountsChildren,
-        {
-          text: 'Manage',
-          link: '/accounts',
-          icon: { type: 'icon', value: 'rocket' },
-        },
-      ];
-      const accountsItem = menuItems[0].children.find((e: any) => {
-        return e.link === '/accounts';
-      });
-      accountsItem.children = accountsChildren;
-      this.menuService.add(menuItems);
-    }, 5000);
+    this.menuService.add(this.menuItems);
     // Can be set page suffix title, https://ng-alain.com/theme/title
     this.titleService.suffix = app.name;
 
