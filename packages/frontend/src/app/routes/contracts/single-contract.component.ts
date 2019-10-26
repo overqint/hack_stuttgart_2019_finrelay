@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ContractsService } from '@shared/contracts.service';
 import { AccountsService } from '@shared/accounts.service';
 import { el_GR } from 'ng-zorro-antd';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-single-contract',
@@ -13,8 +14,8 @@ export class SingleContractComponent implements OnInit {
   constructor(
     private accountsService: AccountsService,
     private contractsService: ContractsService,
-    private route: ActivatedRoute,
-  ) {}
+    private route: ActivatedRoute, private notification: NzNotificationService
+  ) { }
 
   contract: any;
   activatedAccounts: any[];
@@ -31,6 +32,7 @@ export class SingleContractComponent implements OnInit {
 
   execute() {
     this.contractsService.executeOneById(this.contract._id, {});
+    this.notification.create('warning', 'Best App', 'In the World has executed your Contract');
   }
 
   private mapToActivatedAccount(e: any): { title: any; direction: string } {
@@ -46,5 +48,5 @@ export class SingleContractComponent implements OnInit {
     this.contract.accounts = this.activatedAccounts.filter(e => e.direction === 'right').map(e => e._id);
     await this.contractsService.updateOneById(this.contract._id, this.contract);
   }
-  
+
 }
