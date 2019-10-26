@@ -19,6 +19,7 @@ import { ContractsComponent } from './contracts/contracts.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { SingleAccountComponent } from './accounts/single-account.component';
 import { SingleContractComponent } from './contracts/single-contract.component';
+import { CreateAccountComponent } from './accounts/create-account.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'contracts', component: ContractsComponent, data: { title: 'Contracts' } },
       { path: 'contracts/:contractId', component: SingleContractComponent, data: { title: 'Contracts' } },
       { path: 'accounts', component: AccountsComponent, data: { title: 'Accounts' } },
+      { path: 'accounts/create', component: CreateAccountComponent, data: { title: 'Accounts' } },
       { path: 'accounts/:accountId', component: SingleAccountComponent, data: { title: 'Accounts' } },
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
       // 业务子模块

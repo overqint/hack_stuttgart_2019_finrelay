@@ -1,0 +1,45 @@
+<page-header></page-header>
+
+<h1>Create Account</h1>
+
+    <form nz-form>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    type="text"
+                    nz-input
+                    [(ngModel)]="account.name"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+              <nz-form-control nzErrorTip="Please input your username!">
+                  <nz-input-group nzPrefixIcon="user">
+                    <input
+                      type="text"
+                      nz-input
+                      [(ngModel)]="account.linkedAccount.iban"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+                <nz-form-control nzErrorTip="Please input your username!">
+                    <nz-input-group nzPrefixIcon="user">
+                      <input
+                        type="text"
+                        nz-input
+                        [(ngModel)]="account.linkedAccount.accessToken"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                    </nz-input-group>
+                  </nz-form-control>
+        </nz-form-item>
+      </form>
+
+<div>
+    <button nz-button type="submit" nzType="primary" nzSize="large" (click)="save()">
+      Create
+    </button>
+  </div>
+  
