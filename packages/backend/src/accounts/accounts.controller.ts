@@ -32,4 +32,11 @@ export class AccountsController {
     const account = await this.accountsRepository.findOneById(accountId);
     this.contractExecutorService.executeContractsForAccount(account);
   }
+
+  @Post(':accountId/contracts')
+  async setContracts(@Param('accountId') accountId: string, @Body() payload) {
+    const account = await this.accountsRepository.findOneById(accountId);
+    account.contracts = payload.contracts;
+    await this.accountsRepository.save(account);
+  }
 }
