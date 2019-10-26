@@ -129,6 +129,10 @@ export class StartupService {
             text: 'Dashboard',
             link: '/dashboard',
             icon: { type: 'icon', value: 'appstore' },
+          },   {
+            text: 'Go Pro',
+            link: '/go-pro',
+            icon: { type: 'icon', value: 'appstore' },
           },
           {
             text: 'Contracts',

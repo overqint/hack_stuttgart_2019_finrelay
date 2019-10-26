@@ -20,6 +20,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { SingleAccountComponent } from './accounts/single-account.component';
 import { SingleContractComponent } from './contracts/single-contract.component';
 import { CreateAccountComponent } from './accounts/create-account.component';
+import { GoPremiumComponent } from './go-premium/go-premium.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
+      { path: 'go-pro', component: GoPremiumComponent, data: { title: 'Go Pro' } },
       { path: 'contracts', component: ContractsComponent, data: { title: 'Contracts' } },
       { path: 'contracts/:contractId', component: SingleContractComponent, data: { title: 'Contracts' } },
       { path: 'accounts', component: AccountsComponent, data: { title: 'Accounts' } },

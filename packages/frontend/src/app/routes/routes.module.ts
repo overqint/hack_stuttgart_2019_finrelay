@@ -18,12 +18,14 @@ import { SingleContractComponent } from './contracts/single-contract.component';
 import { ContractsActionEditorComponent } from './contracts/contracts-action-editor.component';
 import { ContractsConditionEditorComponent } from './contracts/contracts-condition-editor.component';
 import { CreateAccountComponent } from './accounts/create-account.component';
+import { GoPremiumComponent } from './go-premium/go-premium.component';
 
 const COMPONENTS = [
   DashboardComponent,
   ContractsComponent,
   SingleContractComponent,
   CreateAccountComponent,
+  GoPremiumComponent,
   AccountsComponent,
   SingleAccountComponent,
   // passport pages
