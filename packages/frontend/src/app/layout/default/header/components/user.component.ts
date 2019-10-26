@@ -12,24 +12,20 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       nzPlacement="bottomRight"
       [nzDropdownMenu]="userMenu"
     >
-      <nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
-      {{ settings.user.name }}
+      <nz-avatar nzSrc="/assets/supergeil.jpg" nzSize="small" class="mr-sm"></nz-avatar>
+      Ralph
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
+      <div nz-menu-item>
+      <div style="width: 140px !important; height: 140px !important: border-radius: 4px;">
+      <img width="140" height="140" src="/assets/supergeil.jpg"/>
+      </div>
+    </div>
         <div nz-menu-item routerLink="/pro/account/center">
           <i nz-icon nzType="user" class="mr-sm"></i>
-          {{ 'menu.account.center' | translate }}
+          My Profile
         </div>
-        <div nz-menu-item routerLink="/pro/account/settings">
-          <i nz-icon nzType="setting" class="mr-sm"></i>
-          {{ 'menu.account.settings' | translate }}
-        </div>
-        <div nz-menu-item routerLink="/exception/trigger">
-          <i nz-icon nzType="close-circle" class="mr-sm"></i>
-          {{ 'menu.account.trigger' | translate }}
-        </div>
-        <li nz-menu-divider></li>
         <div nz-menu-item (click)="logout()">
           <i nz-icon nzType="logout" class="mr-sm"></i>
           {{ 'menu.account.logout' | translate }}

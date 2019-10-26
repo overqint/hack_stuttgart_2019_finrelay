@@ -20,6 +20,8 @@ export class SingleAccountComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(async params => {
+      this.account = null;
+      this.transactions = [];
       const accountId = params.accountId;
       this.account = await this.accountsService.findOneById(accountId);
       this.transactions = await this.accountsService.getTransactionsByAccountId(accountId);

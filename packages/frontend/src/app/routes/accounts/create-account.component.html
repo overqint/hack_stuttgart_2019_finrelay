@@ -9,6 +9,7 @@
                   <input
                     type="text"
                     nz-input
+                    style="width: 320px;"
                     placeholder="Account Name"
                     [(ngModel)]="account.name"
                     [ngModelOptions]="{ standalone: true }"
@@ -17,7 +18,7 @@
               </nz-form-control>
             <nz-form-control nzErrorTip="Please input your username!">
            
-                  <nz-select [(ngModel)]="account.type" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose account type" style="width: 220px;">
+                  <nz-select [(ngModel)]="account.type" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose account type" style="width: 320px;">
                     <nz-option nzValue="iban" nzLabel="Deutsche Bank"></nz-option>
                   </nz-select>
              
@@ -28,6 +29,7 @@
                     <input
                       type="text"
                       nz-input
+                      style="width: 320px;"
                       placeholder="IBAN"
                       [(ngModel)]="account.linkedAccount.iban"
                       [ngModelOptions]="{ standalone: true }"
@@ -39,6 +41,7 @@
                         type="text"
                         nz-input
                         placeholder="Access Token"
+                        style="max-width: 320px; height: 256px"
                         [(ngModel)]="account.linkedAccount.accessToken"
                         [ngModelOptions]="{ standalone: true }"
                       ></textarea>

@@ -16,13 +16,14 @@ import { CountdownModule } from 'ngx-countdown';
 import { AccountsService } from './accounts.service';
 import { ContractsService } from './contracts.service';
 import { FrontendNotificationService } from './frontend-notification.service';
+import { PubSubService } from './pub-sub.service';
 const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
 // #endregion
 
 // #region your componets & directives
 const COMPONENTS = [];
 const DIRECTIVES = [];
-const PROVIDERS = [AccountsService, ContractsService, FrontendNotificationService];
+const PROVIDERS = [AccountsService, ContractsService, FrontendNotificationService, PubSubService];
 // #endregion
 
 @NgModule({
