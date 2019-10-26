@@ -2,7 +2,7 @@ import { Injectable, Injector, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { zip } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, filter } from 'rxjs/operators';
 import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { ACLService } from '@delon/acl';
@@ -13,6 +13,7 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ICONS } from '../../../style-icons';
 import { AccountsService } from '@shared/accounts.service';
+import { PubSubService } from '@shared/pub-sub.service';
 
 /**
  * Used for application startup
@@ -20,7 +21,6 @@ import { AccountsService } from '@shared/accounts.service';
  */
 @Injectable()
 export class StartupService {
-
   menuItems: any[];
 
   constructor(
@@ -34,9 +34,14 @@ export class StartupService {
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private httpClient: HttpClient,
     private injector: Injector,
-    private accountsService: AccountsService
+    private accountsService: AccountsService,
+    private pubSubService: PubSubService
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
+    this.pubSubService.event$.pipe(
+      filter((e: any) => e.type === 'accounts-updated')
+    )
+    .subscribe(() => this.refreshAccounts());
   }
 
   private viaHttp(resolve: any, reject: any) {
@@ -86,12 +91,19 @@ export class StartupService {
   }
 
   private async createAccountsChildren() {
-    const accounts = await this.accountsService.findAll();
-    const actualAccountsChildren = accounts.map((account) => ( {
-      text: account.name,
-      link: `/accounts/${account._id}`,
-      icon: { type: 'icon', value: account.type === "iban" ? 'bank' : "dollar" },
-    }));
+    const accounts = (await this.accountsService.findAll()) || [];
+    const mapAccount = account => {
+      let icon = { type: 'icon', value: 'bank'};
+      if (account.type === "blockchain") icon.value = "dollar";
+      else if (account.type === "iban" || account.type === "iban-mock") icon = { type: 'img', value: '/assets/deutsche-bank-icon.png'};
+      else if (account.type === "iban-sparkasse") icon = { type: 'img', value: '/assets/sparkasse-icon.png'};
+      return {
+        text: account.name,
+        link: `/accounts/${account._id}`,
+        icon,
+      };
+    };
+    const actualAccountsChildren = accounts.map(account => mapAccount(account));
     return [
       ...actualAccountsChildren,
       {
@@ -100,6 +112,12 @@ export class StartupService {
         icon: { type: 'icon', value: 'plus' },
       },
     ];
+  }
+
+  async refreshAccounts() {
+    console.log('refreshAccounts')
+    this.menuItems[1].children = await this.createAccountsChildren();
+    this.menuService.add(this.menuItems);
   }
 
   private async viaMock(resolve: any, reject: any) {

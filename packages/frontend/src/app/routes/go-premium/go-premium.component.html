@@ -1,3 +1,74 @@
-<page-header></page-header>
+<style>
+	ul {
+		padding-left:0;
+	}
+	H1 {
+		text-align:center;
+		margin:40px 20px;
+		color:#32CD32;
+	}
+	.bullet {
+		width:18px;
+		margin-right:8px;
+	}
+</style>
 
-Go Bro!
+<page-header>Choose your Package</page-header>
+
+<div style="padding:30px;">
+	<div nz-row [nzGutter]="8">
+		<div nz-col [nzSpan]="8">
+			<nz-card nzTitle="Personal Use">
+				<p>
+					<li>
+						<ul><img src="/assets/premium-icons/bank.jpg" class="bullet" /> Maximum 5 Bank Accounts</ul>
+						<ul><img src="/assets/premium-icons/contract.jpg" class="bullet" /> Maximum 10 Contracts</ul>
+						<ul><img src="/assets/premium-icons/support.jpg" class="bullet" /> No Support</ul>
+						<ul><img src="/assets/premium-icons/history.jpg" class="bullet" /> Limited Transaction History</ul>
+						<ul><img src="/assets/premium-icons/customization.jpg" class="bullet" /> No Visual Customization</ul>
+						<ul><img src="/assets/premium-icons/notification.jpg" class="bullet" /> No Push Notifications</ul>
+						<ul><img src="/assets/premium-icons/mobile_app.jpg" class="bullet" /> Mobile App priced at $2</ul>
+						<ul><img src="/assets/premium-icons/crypto.jpg" class="bullet" /> Only 2 Crypto Wallets</ul>
+					</li>	
+				</p>
+				<h1>Free of charge</h1>
+				<button nz-button nzType="primary" nzBlock nzSize="large">Continue with this plan</button>
+			</nz-card>
+		</div>
+		<div nz-col [nzSpan]="8">
+			<nz-card nzTitle="Small / Midsize Business">
+				<p>
+					<li>
+						<ul><img src="/assets/premium-icons/bank.jpg" class="bullet" /> Unlimited Bank Accounts</ul>
+						<ul><img src="/assets/premium-icons/contract.jpg" class="bullet" /> Unlimited Contracts</ul>
+						<ul><img src="/assets/premium-icons/support.jpg" class="bullet" /> Regular Support</ul>
+						<ul><img src="/assets/premium-icons/history.jpg" class="bullet" /> Full Transaction History</ul>
+						<ul><img src="/assets/premium-icons/customization.jpg" class="bullet" /> No Visual Customization</ul>
+						<ul><img src="/assets/premium-icons/notification.jpg" class="bullet" /> 1000 Push Notifications per Month</ul>
+						<ul><img src="/assets/premium-icons/mobile_app.jpg" class="bullet" /> Mobile App included</ul>
+						<ul><img src="/assets/premium-icons/crypto.jpg" class="bullet" /> First 100 Crypto Wallets Free</ul>
+				</p>
+				<h1>$5 Employee p. Month</h1>
+				<button nz-button nzType="primary" nzBlock nzSize="large">Continue with this plan</button>
+			</nz-card>
+		</div>
+		<div nz-col [nzSpan]="8">
+			<nz-card nzTitle="Premium">
+				<p>
+					<li>
+						<ul><img src="/assets/premium-icons/bank.jpg" class="bullet" /> Unlimited Bank Accounts</ul>
+						<ul><img src="/assets/premium-icons/contract.jpg" class="bullet" /> Unlimited Contracts</ul>
+						<ul><img src="/assets/premium-icons/support.jpg" class="bullet" /> Premium 24/7 Specialist Consultancy</ul>
+						<ul><img src="/assets/premium-icons/history.jpg" class="bullet" /> Full Transaction History</ul>
+						<ul><img src="/assets/premium-icons/customization.jpg" class="bullet" /> Company Customization</ul>
+						<ul><img src="/assets/premium-icons/notification.jpg" class="bullet" /> Unlimited Push Notifications</ul>
+						<ul><img src="/assets/premium-icons/mobile_app.jpg" class="bullet" /> Customized Mobile Platform</ul>
+						<ul><img src="/assets/premium-icons/crypto.jpg" class="bullet" /> Crypto Wallets included</ul>
+				</p>
+				<h1>Contact us</h1>
+				<button nz-button nzType="primary" nzBlock nzSize="large">Continue with this plan</button>
+			</nz-card>
+		</div>
+	</div>
+</div>
+

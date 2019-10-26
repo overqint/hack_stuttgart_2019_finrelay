@@ -4,45 +4,57 @@
 
     <form nz-form>
         <nz-form-item>
-            <nz-form-control nzErrorTip="Please input your username!">
-                <nz-input-group nzPrefixIcon="user">
-                  <nz-select [(ngModel)]="account.type" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose">
-                    <nz-option nzValue="iban" nzLabel="Deutsche Bank"></nz-option>
-                  </nz-select>
-                </nz-input-group>
-              </nz-form-control>
-            <nz-form-control nzErrorTip="Please input your username!" *ngIf="account.type === 'iban'">
+            <nz-form-control nzErrorTip="Please input your username!" >
                 <nz-input-group nzPrefixIcon="user">
                   <input
                     type="text"
                     nz-input
+                    style="width: 320px;"
+                    placeholder="Account Name"
                     [(ngModel)]="account.name"
                     [ngModelOptions]="{ standalone: true }"
                   />
                 </nz-input-group>
               </nz-form-control>
+            <nz-form-control nzErrorTip="Please input your username!">
+           
+                  <nz-select [(ngModel)]="account.type" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose account type" style="width: 320px;">
+                    <nz-option nzValue="iban" nzLabel="Deutsche Bank"></nz-option>
+                  </nz-select>
+             
+              </nz-form-control>
+         
               <nz-form-control nzErrorTip="Please input your username!" *ngIf="account.type === 'iban'">
                   <nz-input-group nzPrefixIcon="user">
                     <input
                       type="text"
                       nz-input
+                      style="width: 320px;"
+                      placeholder="IBAN"
                       [(ngModel)]="account.linkedAccount.iban"
                       [ngModelOptions]="{ standalone: true }"
                     />
                   </nz-input-group>
                 </nz-form-control>
                 <nz-form-control nzErrorTip="Please input your username!" *ngIf="account.type === 'iban'">
-                    <nz-input-group nzPrefixIcon="user">
-                      <input
+                      <textarea
                         type="text"
                         nz-input
+                        placeholder="Access Token"
+                        style="max-width: 320px; height: 256px"
                         [(ngModel)]="account.linkedAccount.accessToken"
                         [ngModelOptions]="{ standalone: true }"
-                      />
-                    </nz-input-group>
+                      ></textarea>
                   </nz-form-control>
+                  <div *ngIf="account.type !== 'iban'" style="color: red; font-weight: bold; padding-top: 8px;">
+                      Further options become available once you select an account type.
+                    </div>
         </nz-form-item>
+       
       </form>
+
+
+
 
 <div>
     <button nz-button type="submit" nzType="primary" nzSize="large" (click)="save()">

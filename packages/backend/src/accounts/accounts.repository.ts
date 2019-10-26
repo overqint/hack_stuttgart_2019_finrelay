@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as api from '../deutsche-bank/api-client/transactions';
+import { MOCK_TRANSACTIONS } from './mock-transactions.const';
 
 /**
  * Repository for Accountss.
@@ -12,21 +13,22 @@ export class AccountsRepository {
   private _data = new Map();
 
   constructor() {
-    const mockData = id => {
-      const linkedAccount = {
-        iban:
-          id === 'DBank1' ? 'DE10010000000000005211' : 'DE10010000000000005250',
-      };
-      const account = {
-        _id: id,
-        name: id,
-        type: 'iban',
-        linkedAccount,
-      };
-      this._data.set(id, account);
-    };
-    mockData('DBank1');
-    mockData('DBank2');
+    this.save({
+      _id: 'SpkTest',
+      name: 'SPK-1234',
+      type: 'iban-sparkasse',
+      linkedAccount: {
+        iban: '12345',
+      },
+    });
+    this.save({
+      _id: 'DE10010000000000005211',
+      name: 'DB-5211',
+      type: 'iban-mock',
+      linkedAccount: {
+        iban: 'DE10010000000000005211',
+      },
+    });
   }
 
   /**
@@ -55,6 +57,14 @@ export class AccountsRepository {
 
   async getTransactionsByAccountId(accountId: string) {
     const account = await this.findOneById(accountId);
+    if (account.type === 'iban-mock') {
+      console.debug('Using iban-mock');
+      return MOCK_TRANSACTIONS;
+    }
+    if (account.type !== 'iban') {
+      console.error('Unsupported account type.');
+      return [];
+    }
     const iban = account.linkedAccount.iban;
     const accessToken = account.linkedAccount.accessToken;
     console.log('Requesting linked account transactions from DB API');
