@@ -13,7 +13,7 @@ export class SingleAccountComponent implements OnInit {
     private accountsService: AccountsService,
     private route: ActivatedRoute,
     private contractsService: ContractsService,
-  ) {}
+  ) { }
 
   transactions: any[];
   account: any;
@@ -24,9 +24,5 @@ export class SingleAccountComponent implements OnInit {
       this.account = await this.accountsService.findOneById(accountId);
       this.transactions = await this.accountsService.getTransactionsByAccountId(accountId);
     });
-  }
-
-  executeContract() {
-    this.accountsService.executeContractsForAccount(this.account._id, {});
   }
 }

@@ -4,8 +4,8 @@ import { take } from 'rxjs/operators';
 
 @Injectable()
 export class ContractsService {
- 
-  constructor(private httpClient: HttpClient) {}
+
+  constructor(private httpClient: HttpClient) { }
 
   async findOneById(contractId: string) {
     return this.httpClient
@@ -28,8 +28,10 @@ export class ContractsService {
       .toPromise() as any;
   }
 
-  async updateOneById(id: string, contract: any) {\
-    // TODO: Implement.
-    throw new Error("Method not implemented.");
+  async updateOneById(id: string, contract: any) {
+    return this.httpClient
+      .post(`http://localhost:3000/contracts/${id}`, contract)
+      .pipe(take(1))
+      .toPromise();
   }
 }
