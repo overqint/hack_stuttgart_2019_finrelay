@@ -234,6 +234,15 @@ export class NodeTypesClass implements INodeTypes {
             },
             {
               displayName: 'Binary Property',
+              name: 'paymentReference',
+              type: 'string',
+              default: '',
+              required: false,
+              description:
+                'Name of the binary property from which to<br />read the PDF file.',
+            },
+            {
+              displayName: 'Binary Property',
               name: 'usePercentage',
               type: 'boolean',
               default: '',
@@ -251,9 +260,17 @@ export class NodeTypesClass implements INodeTypes {
               amount: this.getNodeParameter("amount", NaN) as number,
               counterPartyName: this.getNodeParameter("counterPartyName", NaN) as string,
               iban: this.getNodeParameter("iban", NaN) as string,
+              paymentReference: this.getNodeParameter("paymentReference", NaN) as string,
               usePercentage: this.getNodeParameter("usePercentage", NaN) as boolean
             };
-            console.warn('WIRETRANSFER', parameters);
+            const wireTransferAmount = parameters.usePercentage ? item.amount * (parameters.amount / 100.0) : parameters.amount;
+            const wireTransfer = {
+              iban: parameters.iban,
+              counterPartyName: parameters.counterPartyName,
+              paymentReference: parameters.paymentReference,
+              amount: wireTransferAmount
+            }
+            console.warn('WIRETRANSFER', wireTransfer);
           } catch(err) {
             console.error(err);
           }

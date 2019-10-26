@@ -96,6 +96,17 @@
                               <nz-form-control nzErrorTip="Please input your username!">
                                     <nz-input-group nzPrefixIcon="user">
                                       <input
+                                        type="text"
+                                        nz-input
+                                        [(ngModel)]="action.data.paymentReference"
+                                        [ngModelOptions]="{ standalone: true }"
+                                      />
+                                    </nz-input-group>
+                                  </nz-form-control>
+
+                              <nz-form-control nzErrorTip="Please input your username!">
+                                    <nz-input-group nzPrefixIcon="user">
+                                      <input
                                         type="number"
                                         nz-input
                                         [(ngModel)]="action.data.amount"
