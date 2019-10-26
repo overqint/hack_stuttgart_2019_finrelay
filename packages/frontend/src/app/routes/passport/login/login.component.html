@@ -1,22 +1,22 @@
 <form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
       <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
       <nz-form-item>
-        <nz-form-control [nzErrorTip]="'Please enter mobile number!' | translate">
+        <nz-form-control>
           <nz-input-group nzSize="large" nzPrefixIcon="user">
-            <input nz-input formControlName="userName" placeholder="username: admin or user" />
+            <input nz-input formControlName="userName" placeholder="Username" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzErrorTip="'Please enter password!' | translate">
           <nz-input-group nzSize="large" nzPrefixIcon="lock">
-            <input nz-input type="password" formControlName="password" placeholder="password: ng-alain.com" />
+            <input nz-input type="password" formControlName="password" placeholder="Password" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
   <nz-form-item>
     <nz-col [nzSpan]="12">
-      <label nz-checkbox formControlName="remember">{{ 'app.login.remember-me' | translate }}</label>
+      <label nz-checkbox formControlName="remember" style="color: white;">{{ 'app.login.remember-me' | translate }}</label>
     </nz-col>
     <nz-col [nzSpan]="12" class="text-right">
       <a class="forgot" (click)="msg.error('请找欧阳锋')">{{ 'app.login.forgot-password' | translate }}</a>
