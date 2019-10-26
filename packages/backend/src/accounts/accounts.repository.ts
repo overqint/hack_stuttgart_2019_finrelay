@@ -20,9 +20,8 @@ export class AccountsRepository {
       const account = {
         _id: id,
         name: id,
+        type: 'iban',
         linkedAccount,
-        // Id of linked contracts.
-        contracts: ['foo', 'bar'],
       };
       this._data.set(id, account);
     };

@@ -128,23 +128,23 @@ export class StartupService {
           {
             text: 'Dashboard',
             link: '/dashboard',
-            icon: { type: 'icon', value: 'appstore' },
+            icon: { type: 'icon', value: 'dashboard' },
           },  
           {
             text: 'Contracts',
             link: '/contracts',
-            icon: { type: 'icon', value: 'appstore' },
+            icon: { type: 'icon', value: 'book' },
           },
           {
             text: 'Accounts',
             link: '/accounts',
-            icon: { type: 'icon', value: 'appstore' },
+            icon: { type: 'icon', value: 'bank' },
             children: accountsChildren,
           },
           {
             text: 'Go Premium',
             link: '/go-premium',
-            icon: { type: 'icon', value: 'appstore' },
+            icon: { type: 'icon', value: 'fire' },
           },
         ] as any[],
       },

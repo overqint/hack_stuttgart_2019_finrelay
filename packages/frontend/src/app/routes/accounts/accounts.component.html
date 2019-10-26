@@ -5,17 +5,25 @@
 <nz-table #basicTable [nzData]="accounts">
   <thead>
     <tr>
+      <th style="width: 32px"></th>
       <th>Name</th>
-      <th>Type</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let account of accounts">
       <td>
+          <span *ngIf="account.type === 'iban'">
+              <i nz-icon nzType="bank"></i>
+          </span>
+          <span *ngIf="account.type === 'iban'">
+              <i nz-icon nzType="dollar"></i>
+          </span>
+      </td>
+      <td>
         <a [href]="'#/accounts/' + account._id">{{ account.name }}</a>
       </td>
-      <td>{{ account.type }}</td>
+
       <td>
         <a>Action</a>
         <nz-divider nzType="vertical"></nz-divider>
@@ -26,8 +34,7 @@
 </nz-table>
 
 <div>
-    <a nz-button nzType="primary" nzSize="large" href="#/accounts/create">
-      Create
-    </a>
-  </div>
-  
+  <a nz-button nzType="primary" nzSize="large" href="#/accounts/create">
+    Create
+  </a>
+</div>
