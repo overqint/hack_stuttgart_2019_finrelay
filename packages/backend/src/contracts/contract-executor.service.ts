@@ -54,7 +54,7 @@ export class ContractExecutorService {
           type: 'n8n-nodes-base.functionItem',
           parameters: {
             functionCode:
-              'const transaction = item; console.log("Handling transaction.", transaction);',
+              'const transaction = item; console.log("Handling transaction.", transaction); return item;',
           },
           typeVersion: 1,
           position: [400, 300],
@@ -65,8 +65,8 @@ export class ContractExecutorService {
           parameters: {
             fromEmail: 'ralph.greschner.dev@gmail.com',
             toEmail: 'ralph.greschner.dev@gmail.com',
-            subject: 'TEST',
-            text: 'laber rababer',
+            subject: 'Geile Sache',
+            text: '=balbla {{$node["Start"].data.id}}',
           },
 
           typeVersion: 1,
