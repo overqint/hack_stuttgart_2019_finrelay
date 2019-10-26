@@ -22,6 +22,7 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       <img width="140" height="140" src="/assets/supergeil.jpg"/>
       </div>
     </div>
+    <li nz-menu-divider></li>
         <div nz-menu-item routerLink="/pro/account/center">
           <i nz-icon nzType="user" class="mr-sm"></i>
           My Profile

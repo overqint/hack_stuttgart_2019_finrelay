@@ -91,7 +91,7 @@ export class StartupService {
   }
 
   private async createAccountsChildren() {
-    const accounts = await this.accountsService.findAll();
+    const accounts = (await this.accountsService.findAll()) || [];
     const mapAccount = account => {
       let icon = { type: 'icon', value: 'bank'};
       if (account.type === "blockchain") icon.value = "dollar";
