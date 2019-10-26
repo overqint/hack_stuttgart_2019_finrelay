@@ -30,4 +30,9 @@ export class AccountsController {
     account.contracts = payload.contracts;
     await this.accountsRepository.save(account);
   }
+
+  @Post()
+  async createAccount(@Body() payload) {
+    await this.accountsRepository.save(payload);
+  }
 }

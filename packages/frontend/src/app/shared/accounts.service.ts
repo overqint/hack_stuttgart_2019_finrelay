@@ -20,6 +20,13 @@ export class AccountsService {
       .toPromise() as any;
   }
 
+  async createAccount(account: any) {
+    return this.httpClient
+      .post(`http://localhost:3000/accounts/${accountId}`, account)
+      .pipe(take(1))
+      .toPromise() as any;
+  }
+
   async findAll() {
     return this.httpClient
       .get(`http://localhost:3000/accounts`)
