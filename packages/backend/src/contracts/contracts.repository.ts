@@ -15,6 +15,7 @@ export class ContractsRepository {
       _id: 'foobar',
       name: 'FooBar!',
       conditions: [],
+      actions: [],
     };
     this._data.set('foobar', foobar);
   }

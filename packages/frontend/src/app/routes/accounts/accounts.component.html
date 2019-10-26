@@ -13,7 +13,7 @@
   <tbody>
     <tr *ngFor="let account of accounts">
       <td>
-        <a [href]="'#/accounts/' + account.id">{{ account.name }}</a>
+        <a [href]="'#/accounts/' + account._id">{{ account.name }}</a>
       </td>
       <td>{{ account.type }}</td>
       <td>
