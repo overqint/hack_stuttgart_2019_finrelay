@@ -16,8 +16,9 @@ For running the backend execute:
 Install angular on your system:
 `sudo npm i -g @angular/cli`
 
-For the angular frontend finrelay-prep/packages/frontend/
-install with `npm install`
+To install the  angular frontend change to the directory finrelay-prep/packages/frontend/
+<br/>
+install with command `npm install`
 <br/>
 start with
 <br/>
