@@ -21,6 +21,7 @@ import { SingleAccountComponent } from './accounts/single-account.component';
 import { SingleContractComponent } from './contracts/single-contract.component';
 import { CreateAccountComponent } from './accounts/create-account.component';
 import { GoPremiumComponent } from './go-premium/go-premium.component';
+import { CreateContractComponent } from './contracts/create-contract.component';
 
 const routes: Routes = [
   {
@@ -30,12 +31,13 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
-      { path: 'go-premium', component: GoPremiumComponent, data: { title: 'Go Pro' } },
+      { path: 'go-premium', component: GoPremiumComponent, data: { title: 'Go Premium' } },
       { path: 'contracts', component: ContractsComponent, data: { title: 'Contracts' } },
-      { path: 'contracts/:contractId', component: SingleContractComponent, data: { title: 'Contracts' } },
+      //{ path: 'contracts/create', component: CreateContractComponent, data: { title: 'Create Contract' } },
+      { path: 'contracts/:contractId', component: SingleContractComponent, data: { title: 'View Contract' } },
       { path: 'accounts', component: AccountsComponent, data: { title: 'Accounts' } },
-      { path: 'accounts/create', component: CreateAccountComponent, data: { title: 'Accounts' } },
-      { path: 'accounts/:accountId', component: SingleAccountComponent, data: { title: 'Accounts' } },
+      { path: 'accounts/create', component: CreateAccountComponent, data: { title: 'Create Account' } },
+      { path: 'accounts/:accountId', component: SingleAccountComponent, data: { title: 'View Account' } },
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
       // 业务子模块
       // { path: 'widgets', loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule) },

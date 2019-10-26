@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 @Injectable()
 export class ContractsService {
 
+
   constructor(private httpClient: HttpClient) { }
 
   async findOneById(contractId: string) {
@@ -41,5 +42,12 @@ export class ContractsService {
       .delete(`http://localhost:3000/contracts/${contractId}/delete`)
       .pipe(take(1))
       .toPromise();
+  }
+
+  async createContract(contract) {
+    return this.httpClient
+      .post(`http://localhost:3000/contracts`, contract)
+      .pipe(take(1))
+      .toPromise() as any;
   }
 }

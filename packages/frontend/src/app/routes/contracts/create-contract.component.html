@@ -1,0 +1,63 @@
+<page-header></page-header>
+
+
+    <form nz-form>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your username!" >
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    type="text"
+                    nz-input
+                    style="width: 320px;"
+                    placeholder="Contract Name"
+                    [(ngModel)]="contract.name"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            <nz-form-control nzErrorTip="Please input your username!">
+           
+                  <nz-select [(ngModel)]="contract.type" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose contract type" style="width: 320px;">
+                    <nz-option nzValue="iban" nzLabel="Deutsche Bank"></nz-option>
+                  </nz-select>
+             
+              </nz-form-control>
+         
+              <nz-form-control nzErrorTip="Please input your username!" *ngIf="contract.type === 'iban'">
+                  <nz-input-group nzPrefixIcon="user">
+                    <input
+                      type="text"
+                      nz-input
+                      style="width: 320px;"
+                      placeholder="IBAN"
+                      [(ngModel)]="contract.linkedContract.iban"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+                <nz-form-control nzErrorTip="Please input your username!" *ngIf="contract.type === 'iban'">
+                      <textarea
+                        type="text"
+                        nz-input
+                        placeholder="Access Token"
+                        style="max-width: 320px; height: 256px"
+                        [(ngModel)]="contract.linkedContract.accessToken"
+                        [ngModelOptions]="{ standalone: true }"
+                      ></textarea>
+                  </nz-form-control>
+                  <div *ngIf="contract.type !== 'iban'" style="color: red; font-weight: bold; padding-top: 8px;">
+                      Further options become available once you select an contract type.
+                    </div>
+        </nz-form-item>
+       
+      </form>
+
+
+
+
+<div>
+    <button nz-button type="submit" nzType="primary" nzSize="large" (click)="save()">
+      Create
+    </button>
+  </div>
+  

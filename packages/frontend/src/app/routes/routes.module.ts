@@ -19,12 +19,14 @@ import { ContractsActionEditorComponent } from './contracts/contracts-action-edi
 import { ContractsConditionEditorComponent } from './contracts/contracts-condition-editor.component';
 import { CreateAccountComponent } from './accounts/create-account.component';
 import { GoPremiumComponent } from './go-premium/go-premium.component';
+import { CreateContractComponent } from './contracts/create-contract.component';
 
 const COMPONENTS = [
   DashboardComponent,
   ContractsComponent,
   SingleContractComponent,
   CreateAccountComponent,
+  CreateContractComponent,
   GoPremiumComponent,
   AccountsComponent,
   SingleAccountComponent,

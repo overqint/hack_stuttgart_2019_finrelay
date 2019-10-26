@@ -1,14 +1,23 @@
-<page-header></page-header>
+<page-header>
+<nz-page-header style="margin-top: -64px">
+
+    <!--extra-->
+    <nz-page-header-extra s>
+      <button nz-button nzType="primary" nzType="primary" (click)="createContract()"><i nz-icon nzType="plus"></i> New</button>
+    </nz-page-header-extra>
+
+  </nz-page-header>
+</page-header>
+
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <p>Delete this contract?</p>
 </nz-modal>
-<nz-table #basicTable [nzData]="contracts">
+<nz-table #basicTable [nzData]="contracts" nzShowPagination="false" class="hidden-thead">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Type</th>
-      <th>Action</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -16,11 +25,9 @@
       <td>
         <a [href]="'#/contracts/' + contract._id">{{ contract.name }}</a>
       </td>
-      <td>{{ contract.type }}</td>
       <td>
-        <a>Action</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button [nzType]="'primary'" (click)="showModal(contract)"><span>Delete</span></button>
+        <button nz-button [nzType]="'danger'" (click)="showModal(contract)"><i nz-icon nzType="close"></i> Delete</button>
+
       </td>
     </tr>
   </tbody>

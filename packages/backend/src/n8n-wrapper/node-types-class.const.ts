@@ -13,6 +13,8 @@ export const FunctionItemNode = new (require('n8n-nodes-base/dist/nodes/Function
 export const EmailSendNode = new (require('n8n-nodes-base/dist/nodes/EmailSend.node')).EmailSend();
 export const ExecuteCommandNode = new (require('n8n-nodes-base/dist/nodes/ExecuteCommand.node')).ExecuteCommand();
 
+const USE_NOTIFIER = true;
+
 const resolveInputPlaceholder = (id: string) =>
   InputPlaceholderRepository._data.get(id);
 
@@ -271,6 +273,20 @@ export class NodeTypesClass implements INodeTypes {
               amount: wireTransferAmount
             }
             console.warn('WIRETRANSFER', wireTransfer);
+            if (USE_NOTIFIER) {
+              const notifier = require('node-notifier');
+              notifier.notify(
+                {
+                  title: 'New Transaction',
+                  message: 'Hello from node, Mr. User!',
+                  sound: true, // Only Notification Center or Windows Toasters
+                  wait: true // Wait with callback, until user action is taken against notification, does not apply to Windows Toasters as they always wait
+                },
+                function(err, response) {
+                  // Response is response from notification
+                }
+              );
+            }
           } catch(err) {
             console.error(err);
           }

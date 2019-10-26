@@ -1,40 +1,52 @@
-<page-header></page-header>
+<page-header nzTitle="Edit Contract"></page-header>
 
-<h1>Contract {{ contract.name }}</h1>
+
+
+<h2>General Info</h2>
+<form nz-form>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your username!">
+      <nz-input-group nzPrefixIcon="user">
+        <input
+          type="text"
+          nz-input
+          style="width: 320px;"
+          placeholder="Contract Name"
+          [(ngModel)]="contract.name"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
 
 <div>
-    <h2>Activated Accounts</h2>
-  <nz-transfer
-    [nzDataSource]="activatedAccounts"
-    [nzTitles]="['Source', 'Target']"
-  >
-  </nz-transfer>
+  <h2>Enabled Accounts</h2>
+  <nz-transfer [nzDataSource]="activatedAccounts" [nzTitles]="['Disabled', 'Enabled']"> </nz-transfer>
 </div>
 
 <div>
-    <h2>Conditions</h2>
+  <h2>Conditions</h2>
   <app-contracts-condition-editor [contract]="contract"></app-contracts-condition-editor>
-    
-  </div>
-
-  <div>
-      <h2>Actions</h2>
-    <app-contracts-action-editor [contract]="contract"></app-contracts-action-editor>
-      
-    </div>
+</div>
 
 <div>
+  <h2>Actions</h2>
+  <app-contracts-action-editor [contract]="contract"></app-contracts-action-editor>
+</div>
+
+<nz-button-group>
   <button nz-button type="submit" nzType="primary" nzSize="large" (click)="save()">
     Save
   </button>
   <button nz-button type="submit" nzType="primary" nzSize="large" (click)="execute()">
     Execute
   </button>
-</div>
+</nz-button-group>
 
-<div>
-    <h2>Debug</h2>
-    <p>
-      {{ contract | json }}
-    </p>
-  </div>
+<div hidden>
+  <h2>Debug</h2>
+  <p>
+    {{ contract | json }}
+  </p>
+</div>

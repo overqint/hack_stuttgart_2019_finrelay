@@ -27,6 +27,7 @@
     "n8n-core": "^0.14.0",
     "n8n-nodes-base": "^0.22.0",
     "n8n-workflow": "^0.15.0",
+    "node-notifier": "^6.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3"

@@ -43,4 +43,11 @@ export class ContractsController {
      return this.contractsRepository.delete(contractId);  
     
   }
+
+  @Post()
+  async createContract(@Body() payload) {
+    if (!payload._id) payload._id = Date.now().toString();
+    await this.contractsRepository.save(payload);
+    return payload;
+  }
 }
