@@ -4,9 +4,9 @@ import { take } from 'rxjs/operators';
 
 @Injectable()
 export class AccountsService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  async findById(accountId: string) {
+  async findOneById(accountId: string) {
     return this.httpClient
       .get(`http://localhost:3000/accounts/${accountId}`)
       .pipe(take(1))

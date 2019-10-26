@@ -6,8 +6,8 @@ export class AccountsController {
   constructor(private accountsRepository: AccountsRepository) {}
 
   @Get(':accountId')
-  async findById(@Param('accountId') accountId: string) {
-    return this.accountsRepository.findById(accountId);
+  async findOneById(@Param('accountId') accountId: string) {
+    return this.accountsRepository.findOneById(accountId);
   }
 
   @Get()

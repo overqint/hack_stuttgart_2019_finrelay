@@ -8,7 +8,7 @@ import { AccountsService } from '@shared/accounts.service';
   templateUrl: './single-account.component.html',
 })
 export class SingleAccountComponent implements OnInit {
-  constructor(private accountsService: AccountsService, private route: ActivatedRoute) { }
+  constructor(private accountsService: AccountsService, private route: ActivatedRoute) {}
 
   accountId: string;
   transactions: any[];
@@ -17,7 +17,7 @@ export class SingleAccountComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(async params => {
       const accountId = params.accountId;
-      this.account = await this.accountsService.findById(accountId);
+      this.account = await this.accountsService.findOneById(accountId);
       this.transactions = await this.accountsService.getTransactionsByAccountId(accountId);
     });
   }

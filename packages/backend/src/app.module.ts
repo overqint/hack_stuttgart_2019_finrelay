@@ -6,10 +6,12 @@ import { TransactionProcessorModule } from './transaction-processor/transaction-
 import { N8NWrapperModule } from './n8n-wrapper/n8n-wrapper.module';
 import { AccountsController } from './accounts/accounts.controller';
 import { AccountsRepository } from './accounts/accounts.repository';
+import { ContractsController } from './contracts/contracts.controller';
+import { ContractsRepository } from './contracts/contracts.repository';
 
 @Module({
   imports: [DeutscheBankModule, N8NWrapperModule],
-  controllers: [AppController, AccountsController],
-  providers: [AppService, AccountsRepository],
+  controllers: [AppController, AccountsController, ContractsController],
+  providers: [AppService, AccountsRepository, ContractsRepository],
 })
 export class AppModule {}
