@@ -22,7 +22,7 @@ export class AccountsService {
 
   async createAccount(account: any) {
     return this.httpClient
-      .post(`http://localhost:3000/accounts/${accountId}`, account)
+      .post(`http://localhost:3000/accounts`, account)
       .pipe(take(1))
       .toPromise() as any;
   }
