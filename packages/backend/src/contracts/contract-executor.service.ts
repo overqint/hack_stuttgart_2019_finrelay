@@ -21,6 +21,7 @@ export class ContractExecutorService {
       contract,
       payload,
     );
+    payload.accounts = contract.accounts;
     const transactions = await this.resolveTransactionsForPayload(payload);
     const inputPlaceholder = Date.now().toString();
     const resolvedPlaceholder = {
@@ -53,6 +54,7 @@ export class ContractExecutorService {
     if (payload.accounts === '*') {
       payload.accounts = await this.accountsRepository.distinctAccountIds();
     }
+    console.log("Resolving transacctions.", payload.accounts);
     for (const accountId of payload.accounts) {
       try {
         const accountTransactions = await this.accountsRepository.getTransactionsByAccountId(

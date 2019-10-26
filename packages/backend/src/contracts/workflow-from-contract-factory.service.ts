@@ -82,7 +82,7 @@ export class WorkflowFromContractFactoryService {
     }
     */
 
-    console.log('connections:', connections);
+    //console.log('connections:', connections);
     workflow.connections = connections;
     console.log('workflow:', JSON.stringify(workflow, null, 2));
     return workflow;

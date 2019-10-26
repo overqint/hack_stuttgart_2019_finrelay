@@ -28,8 +28,11 @@ export class SingleContractComponent implements OnInit {
     });
   }
 
+  execute() {
+    this.contractsService.executeOneById(this.contract._id, {});
+  }
+
   private mapToActivatedAccount(e: any): { title: any; direction: string; } {
-    debugger;
     const accountInContract = this.contract.accounts.indexOf(e._id) >= 0;
     return {
       _id: e._id,
@@ -39,7 +42,6 @@ export class SingleContractComponent implements OnInit {
   }
 
   async save() {
-    debugger;
     this.contract.accounts = this.activatedAccounts.filter((e) => e.direction === 'right').map((e) => e._id);
     await this.contractsService.updateOneById(this.contract._id, this.contract);
   }
