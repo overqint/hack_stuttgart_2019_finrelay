@@ -13,7 +13,8 @@ export class SingleContractComponent implements OnInit {
   constructor(
     private accountsService: AccountsService,
     private contractsService: ContractsService,
-     private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+  ) {}
 
   contract: any;
   activatedAccounts: any[];
@@ -24,7 +25,7 @@ export class SingleContractComponent implements OnInit {
       const contractId = params.contractId;
       this.contract = await this.contractsService.findOneById(contractId);
       this.accounts = await this.accountsService.findAll();
-      this.activatedAccounts = this.accounts.map((e) => this.mapToActivatedAccount(e));
+      this.activatedAccounts = this.accounts.map(e => this.mapToActivatedAccount(e));
     });
   }
 
@@ -32,17 +33,18 @@ export class SingleContractComponent implements OnInit {
     this.contractsService.executeOneById(this.contract._id, {});
   }
 
-  private mapToActivatedAccount(e: any): { title: any; direction: string; } {
+  private mapToActivatedAccount(e: any): { title: any; direction: string } {
     const accountInContract = this.contract.accounts.indexOf(e._id) >= 0;
     return {
       _id: e._id,
       title: e.name,
-      direction: accountInContract ? "right" : "left"
+      direction: accountInContract ? 'right' : 'left',
     } as any;
   }
 
   async save() {
-    this.contract.accounts = this.activatedAccounts.filter((e) => e.direction === 'right').map((e) => e._id);
+    this.contract.accounts = this.activatedAccounts.filter(e => e.direction === 'right').map(e => e._id);
     await this.contractsService.updateOneById(this.contract._id, this.contract);
   }
+  
 }

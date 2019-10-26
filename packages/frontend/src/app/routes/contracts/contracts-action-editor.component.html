@@ -1,0 +1,21 @@
+<nz-table #basicTable [nzData]="actions">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let action of basicTable.data">
+            <td> {{ action | json }}</td>
+            <td>
+                <button nz-button type="submit" nzType="primary" nzSize="large" (click)="removeAction(action)">
+                    -
+                  </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    <button nz-button type="submit" nzType="primary" nzSize="large" (click)="addAction()">
+        +
+      </button>

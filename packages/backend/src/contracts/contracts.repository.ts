@@ -15,19 +15,30 @@ export class ContractsRepository {
       _id: 'foo',
       name: 'Foo!',
       conditions: [],
-      actions: [],
       accounts: [],
+      actions: [
+        {
+          type: 'e-mail',
+          data: {
+            fromEmail: 'ralph.greschner.dev@gmail.com',
+            toEmail: 'ralph.greschner.dev@gmail.com',
+            subject: 'Geile Sache',
+            text: `=Transaktion '{{$node["Start"].data.paymentReference}}' am {{$node["Start"].data.valueDate}} ÃƒÂ¼ber {{$node["Start"].data.amount}} EUR.`,
+          },
+        },
+      ],
     };
-
     this._data.set(foo._id, foo);
-    const bar = {
+/*
+    const foobar = {
       _id: 'bar',
       name: 'Bar!',
       conditions: [],
       actions: [],
       accounts: [],
     };
-    this._data.set(bar._id, bar);
+    this._data.set(foobar._id, foobar);
+    */
   }
 
   /**

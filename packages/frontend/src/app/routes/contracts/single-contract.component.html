@@ -3,18 +3,18 @@
 <h1>Contract {{ contract.name }}</h1>
 
 <div>
-  {{ contract | json }}
+    <h2>Activated Accounts</h2>
+  <nz-transfer
+    [nzDataSource]="activatedAccounts"
+    [nzTitles]="['Source', 'Target']"
+  >
+  </nz-transfer>
 </div>
 
 <div>
-<nz-transfer
-[nzDataSource]="activatedAccounts"
-[nzTitles]="['Source', 'Target']"
-(nzSelectChange)="select($event)"
-(nzChange)="change($event)"
->
+  <h2>Actions</h2>
+<app-contracts-action-editor [contract]="contract"></app-contracts-action-editor>
   
-</nz-transfer>
 </div>
 
 <div>
@@ -25,3 +25,10 @@
     Execute
   </button>
 </div>
+
+<div>
+    <h2>Debug</h2>
+    <p>
+      {{ contract | json }}
+    </p>
+  </div>
