@@ -111,6 +111,11 @@ export class StartupService {
         link: '/accounts/create',
         icon: { type: 'icon', value: 'plus' },
       },
+      {
+        text: 'Manage',
+        link: '/accounts',
+        icon: { type: 'icon', value: 'setting' },
+      },
     ];
   }
 

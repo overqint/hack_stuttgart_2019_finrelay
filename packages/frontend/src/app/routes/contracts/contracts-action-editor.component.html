@@ -1,4 +1,4 @@
-<nz-table #basicTable [nzData]="actions" class="hidden-thead">
+<nz-table #basicTable [nzData]="actions" class="hidden-thead" nzShowPagination="false">
   <thead>
     <tr>
       <th>Name</th>
@@ -115,18 +115,18 @@
                   </div>
 
 
-        <div>
+        <div hidden>
           {{ action | json }}
         </div>
       </td>
       <td>
-        <button nz-button type="submit" nzType="primary" nzSize="large" (click)="removeAction(action)">
-          -
+        <button nz-button type="submit" nzType="danger" nzSize="large" (click)="removeAction(action)" style="float: right;">
+            <i nz-icon nzType="close"></i> Action
         </button>
       </td>
     </tr>
   </tbody>
 </nz-table>
 <button nz-button type="submit" nzType="primary" nzSize="large" (click)="addAction()">
-  Add Action
+    <i nz-icon nzType="plus"></i> Action
 </button>

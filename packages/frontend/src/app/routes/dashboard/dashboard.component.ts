@@ -2,15 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { AccountsService } from '@shared/accounts.service';
+import { ContractsService } from '@shared/contracts.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
-  constructor(private http: _HttpClient) {}
+  constructor(private http: _HttpClient
+    , private accountsService: AccountsService
+    , private contractsService: ContractsService) {}
 
-  ngOnInit() {}
+    numberOfAccounts: 0;
+numberOfContracts: 0;
+
+  async ngOnInit() {
+    this.numberOfAccounts = ( await this.accountsService.findAll()).length;
+    this.numberOfContracts = ( await this.contractsService.findAll()).length;
+  }
 
   onClickButton() {
     alert('Hello!');

@@ -2,33 +2,33 @@
 
 <h1>Accounts</h1>
 
-<nz-table #basicTable [nzData]="accounts">
+<nz-table #basicTable [nzData]="accounts" class="hidden-thead" nzShowPagination="false">
   <thead>
     <tr>
-      <th style="width: 32px"></th>
-      <th>Name</th>
+      <th style="max-width: 16px; padding-right: 0;"></th>
+      <th style="padding-left: 0;">Name</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let account of accounts">
-      <td>
+      <td style="max-width: 16px; padding-right: 0;">
           <span *ngIf="account.type === 'iban'">
-              <i nz-icon nzType="bank"></i>
+              <img src="/assets/deutsche-bank-icon.png"/>
           </span>
-          <span *ngIf="account.type === 'iban'">
-              <i nz-icon nzType="dollar"></i>
+          <span *ngIf="account.type === 'iban-mock'">
+              <img src="/assets/deutsche-bank-icon.png"/>
+          </span>
+          <span *ngIf="account.type === 'iban-sparkasse'">
+              <img src="/assets/sparkasse-icon.png"/>
           </span>
       </td>
-      <td>
+      <td style="padding-left: 0;">
         <a [href]="'#/accounts/' + account._id">{{ account.name }}</a>
       </td>
-
       <td>
-        <a>Action</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <a>Delete</a>
-      </td>
+          <button nz-button [nzType]="'danger'" (click)="showModal(contract)" style="float: right;"><i nz-icon nzType="close"></i> Delete</button>
+        </td>
     </tr>
   </tbody>
 </nz-table>

@@ -1,4 +1,4 @@
-<nz-table #basicTable [nzData]="conditions" class="hidden-thead">
+<nz-table #basicTable [nzData]="conditions" class="hidden-thead" nzShowPagination="false">
   <thead>
     <tr>
       <th>Name</th>
@@ -87,18 +87,18 @@
               </form>
             </div>
 
-        <div>
+            <div hidden>
           {{ condition | json }}
         </div>
       </td>
       <td>
-        <button nz-button type="submit" nzType="primary" nzSize="large" (click)="removeCondition(condition)">
-          -
+        <button nz-button type="submit" nzType="danger" nzSize="large" (click)="removeCondition(condition)" style="float: right;">
+            <i nz-icon nzType="close"></i> Action
         </button>
       </td>
     </tr>
   </tbody>
 </nz-table>
 <button nz-button type="submit" nzType="primary" nzSize="large" (click)="addCondition()">
-  +
+    <i nz-icon nzType="plus"></i> Action
 </button>

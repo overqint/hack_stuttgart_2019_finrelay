@@ -22,6 +22,6 @@ export class CreateAccountComponent {
   async save() {
     const createdAccount = await this.accountsService.createAccount(this.account);
     this.pubSubService.publish({ type: 'accounts-updated' });
-    this.router.navigate(['/accounts', createdAccount._id]);
+    this.router.navigate(['/accounts']);
   }
 }

@@ -19,6 +19,7 @@ export class SingleContractComponent implements OnInit {
   contract: any;
   activatedAccounts: any[];
   accounts: any[];
+  
 
   ngOnInit() {
     this.route.params.subscribe(async params => {

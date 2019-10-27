@@ -9,7 +9,6 @@
       '';
     grid-gap: 10px;
     grid-template-columns: auto auto auto;
-    background-color: #fff;
   }
   .test {
   }
@@ -42,39 +41,47 @@
     font-size: 28px;
   }
 </style>
-<div class="grid">
-  <div class="test">
-    <h1>Welcome to your financial future</h1>
+<div >
+
+    <h1>Welcome to your financial freedom!</h1>
     <p>
       Let's manage your finances...
     </p>
     <!-- <button nz-button type="submit" nzType="primary" nzSize="large" (click)="onClickButton()">
       Works for me!
     </button> -->
-  </div>
-  <div class="timeline">
-    <nz-timeline>
-      <nz-timeline-item nzColor="green">Your new Account Crypto Savings was added succesfully</nz-timeline-item>
-      <nz-timeline-item nzColor="green">Initiated Contract: foo @ {{ today | date }}</nz-timeline-item>
-      <nz-timeline-item nzColor="red">
-        <p>Solve initial network problems 1</p>
-      </nz-timeline-item>
-      <nz-timeline-item>
-        <p>Technical testing 3 2015-09-01</p>
-      </nz-timeline-item>
-      <nz-timeline-item nzColor="gray">
-        <p>Technical testing 1</p>
-      </nz-timeline-item>
-    </nz-timeline>
-  </div>
+</div>
+ 
   <div class="income">
-    <div style="background: #fff; padding: 30px;">
-      <nz-row [nzGutter]="16">
-        <nz-col [nzSpan]="12">
+    <div>
+      <nz-row [nzGutter]="16">  
+          <nz-col [nzSpan]="13">
+              <nz-card>
+                <nz-statistic
+                  [nzValue]="numberOfAccounts"
+                  [nzTitle]="'Accounts'"
+                  [nzValueStyle]="{ color: '#000000' }"
+                >
+                </nz-statistic>
+                <ng-template #prefixTplTwo><i nz-icon nzType="arrow-down"></i></ng-template>
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="11">
+                <nz-card>
+                  <nz-statistic
+                    [nzValue]="numberOfContracts"
+                    [nzTitle]="'Contracts'"
+                    [nzValueStyle]="{ color: '#000000' }"
+                  >
+                  </nz-statistic>
+                  <ng-template #prefixTplTwo><i nz-icon nzType="arrow-down"></i></ng-template>
+                </nz-card>
+              </nz-col>
+        <nz-col [nzSpan]="13">
           <nz-card>
             <nz-statistic
               [nzValue]="11.28 | number: '1.0-2'"
-              [nzTitle]="'Icome'"
+              [nzTitle]="'Income'"
               [nzPrefix]="prefixTplOne"
               [nzSuffix]="'%'"
               [nzValueStyle]="{ color: '#3F8600' }"
@@ -83,71 +90,48 @@
             <ng-template #prefixTplOne><i nz-icon nzType="arrow-up"></i></ng-template>
           </nz-card>
         </nz-col>
-        <nz-col [nzSpan]="12">
-          <nz-card>
-            <nz-statistic
-              [nzValue]="9.3 | number: '1.0-2'"
-              [nzTitle]="'Expenses'"
-              [nzPrefix]="prefixTplTwo"
-              [nzSuffix]="'%'"
-              [nzValueStyle]="{ color: '#CF1322' }"
-            >
-            </nz-statistic>
-            <ng-template #prefixTplTwo><i nz-icon nzType="arrow-down"></i></ng-template>
-          </nz-card>
-        </nz-col>
+        <nz-col [nzSpan]="11">
+            <nz-card>
+              <nz-statistic
+                [nzValue]="9.3 | number: '1.0-2'"
+                [nzTitle]="'Expenses'"
+                [nzPrefix]="prefixTplTwo"
+                [nzSuffix]="'%'"
+                [nzValueStyle]="{ color: '#CF1322' }"
+              >
+              </nz-statistic>
+              <ng-template #prefixTplTwo><i nz-icon nzType="arrow-down"></i></ng-template>
+            </nz-card>
+          </nz-col>
+         
       </nz-row>
     </div>
-  </div>
-  <div class="countdown">
-    <h1>Countdown to your financial freedom</h1>
-    <nz-row [nzGutter]="16">
-      <nz-col [nzSpan]="12">
-        <nz-countdown [nzValue]="deadline" [nzTitle]="'Hours Minutes Seconds'"></nz-countdown>
+</div>
+<div>
+    <nz-col [nzSpan]="13">
+      <nz-card> <div class="ant-statistic-title">
+              <h3 style="color: rgba(0, 0, 0, 0.45)">
+                  Transaction Rate
+                </h3>
+          </div>
+          <nz-col [nzSpan]="24" style="margin-top: 8px;">
+         
+          <nz-progress
+      nzType="circle"
+      style="margin-right: 16px;"
+      [nzPercent]="90"
+      [nzStrokeColor]="{ '0%': '#108ee9', '50%': '#2db7f5', '100%': '#87d068' }"
+    ></nz-progress>
+    <nz-progress [nzPercent]="75" nzType="circle" style="margin-right: 16px;"></nz-progress>
+    <nz-progress [nzPercent]="70" nzType="circle" nzStatus="exception" style="margin-right: 16px;"></nz-progress>
+    <nz-progress [nzPercent]="100" nzType="circle" style="margin-right: 16px;"></nz-progress>
+  </nz-col>
+  <nz-col [nzSpan]="24" style="margin-top: 16px;">
+        <nz-progress [nzPercent]="30"></nz-progress>
+        <nz-progress [nzPercent]="50" nzStatus="active"></nz-progress>
+        <nz-progress [nzPercent]="70" nzStatus="exception"></nz-progress>
+        <nz-progress [nzPercent]="100"></nz-progress>
       </nz-col>
-
-      <nz-col [nzSpan]="24" style="margin-top: 20px;">
-        <nz-countdown [nzValue]="deadline" [nzTitle]="'Years and Days'" [nzFormat]="'Y year D dayz'"></nz-countdown>
-      </nz-col>
-    </nz-row>
-  </div>
-  <div class="contract_balance">
-    <nz-row [nzGutter]="16">
-      <nz-col [nzSpan]="12">
-        <nz-statistic [nzValue]="2 | number" [nzTitle]="'Active Contracts  helping you'"></nz-statistic>
-      </nz-col>
-      <nz-col [nzSpan]="12">
-        <nz-statistic [nzValue]="2019.111 | number: '1.0-2'" [nzTitle]="'Account Balance (EUR)'"></nz-statistic>
-      </nz-col>
-    </nz-row>
-  </div>
-  <div class="calendar">
-    <nz-calendar>
-      <ul *nzDateCell="let date" class="events">
-        <ng-container [ngSwitch]="date.getDate()">
-          <ng-container *ngSwitchCase="8">
-            <li *ngFor="let item of listDataMap.eight">
-              <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
-            </li>
-          </ng-container>
-          <ng-container *ngSwitchCase="10">
-            <li *ngFor="let item of listDataMap.ten">
-              <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
-            </li>
-          </ng-container>
-          <ng-container *ngSwitchCase="11">
-            <li *ngFor="let item of listDataMap.eleven">
-              <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
-            </li>
-          </ng-container>
-        </ng-container>
-      </ul>
-      <ng-container *nzMonthCell="let month">
-        <div *ngIf="getMonthData(month) as monthData" class="notes-month">
-          <section>{{ monthData }}</section>
-          <span>Backlog number</span>
-        </div>
-      </ng-container>
-    </nz-calendar>
-  </div>
+        </nz-card>
+    </nz-col>
 </div>

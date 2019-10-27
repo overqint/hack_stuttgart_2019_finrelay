@@ -25,16 +25,19 @@
   <nz-transfer [nzDataSource]="activatedAccounts" [nzTitles]="['Disabled', 'Enabled']"> </nz-transfer>
 </div>
 
-<div>
-  <h2>Conditions</h2>
-  <app-contracts-condition-editor [contract]="contract"></app-contracts-condition-editor>
+<div style="margin-top: 8px;">
+    <nz-col [nzSpan]="11">
+        <h2>Conditions</h2>
+        <app-contracts-condition-editor [contract]="contract"></app-contracts-condition-editor>
+    </nz-col>
+    <nz-col [nzSpan]="2"></nz-col>
+    <nz-col [nzSpan]="11">
+        <h2>Actions</h2>
+        <app-contracts-action-editor [contract]="contract"></app-contracts-action-editor>
+    </nz-col>
 </div>
 
-<div>
-  <h2>Actions</h2>
-  <app-contracts-action-editor [contract]="contract"></app-contracts-action-editor>
-</div>
-
+<div style="margin-top: 32px">
 <nz-button-group>
   <button nz-button type="submit" nzType="primary" nzSize="large" (click)="save()">
     Save
@@ -43,6 +46,7 @@
     Execute
   </button>
 </nz-button-group>
+</div>
 
 <div hidden>
   <h2>Debug</h2>
