@@ -6,13 +6,6 @@ import { Component, OnInit, Input, NgZone, ChangeDetectorRef } from '@angular/co
   styles: [],
 })
 export class ContractsConditionEditorComponent {
-  refreshConditions() {
-    this.conditions = [...this.contract.conditions];
-  }
-
-  private _contract: any;
-
-  conditions: any[];
 
   @Input()
   public set contract(contract: any) {
@@ -24,6 +17,20 @@ export class ContractsConditionEditorComponent {
     return this._contract;
   }
 
+  private _contract: any;
+
+  conditions: any[];
+
+  validConditionTypes = [
+    { value: 'noop', label: 'Dummy', disabled: true },
+    { value: 'check-amount', label: 'Amount is' },
+    { value: 'account-iban-equals', label: 'Counter Party IBAN equals' },
+    { value: 'counter-party-name-contains', label: 'Counter Party Name contains' },
+  ];
+  refreshConditions() {
+    this.conditions = [...this.contract.conditions];
+  }
+
   removeCondition(condition: any) {
     const index = this.contract.conditions.indexOf(condition);
     this.contract.conditions.splice(index, 1);
@@ -33,21 +40,14 @@ export class ContractsConditionEditorComponent {
   addCondition() {
     const NEW_CONDITION = {
       type: 'check-amount',
-      data: {operation: 'eq'},
+      data: { operation: 'eq' },
     };
     this.contract.conditions.push(NEW_CONDITION);
     this.refreshConditions();
   }
 
-  validConditionTypes = [
-    {value: 'noop', label: "Dummy", disabled: true},
-    {value:"check-amount", label: "Amount is"},
-    {value:"account-iban-equals", label: "Counter Party IBAN equals"},
-    {value:'counter-party-name-contains', label: "Counter Party Name contains"},
-  ]
-
   onConditionTypeChanged(condition) {
-    condition.data = {};
+    const conditionData = condition.type === 'check-amount' ? { operation: 'eq' } : {};
+    condition.data = conditionData;
   }
-  
 }

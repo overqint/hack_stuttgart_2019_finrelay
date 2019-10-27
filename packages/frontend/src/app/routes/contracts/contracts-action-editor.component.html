@@ -1,3 +1,4 @@
+<nz-card>
 <nz-table #basicTable [nzData]="actions" class="hidden-thead" nzShowPagination="false">
   <thead>
     <tr>
@@ -127,6 +128,7 @@
     </tr>
   </tbody>
 </nz-table>
-<button nz-button type="submit" nzType="primary" nzSize="large" (click)="addAction()">
+<button nz-button type="submit" nzType="primary" (click)="addAction()">
     <i nz-icon nzType="plus"></i> Action
 </button>
+</nz-card>
