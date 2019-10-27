@@ -1,6 +1,15 @@
-<page-header></page-header>
+<page-header [title]="'Manage Accounts'">
+<nz-page-header style="margin-top: -64px">
 
-<h1>Accounts</h1>
+    <!--extra-->
+    <nz-page-header-extra>
+        <a nz-button nzType="primary" href="#/accounts/create">
+          <i nz-icon nzType="plus"></i> New
+        </a>
+    </nz-page-header-extra>
+
+  </nz-page-header>
+</page-header>
 
 <nz-table #basicTable [nzData]="accounts" class="hidden-thead" nzShowPagination="false">
   <thead>
@@ -33,8 +42,3 @@
   </tbody>
 </nz-table>
 
-<div>
-  <a nz-button nzType="primary" nzSize="large" href="#/accounts/create">
-    Create
-  </a>
-</div>

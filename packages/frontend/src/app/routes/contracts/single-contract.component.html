@@ -1,8 +1,4 @@
-<page-header nzTitle="Edit Contract"></page-header>
-
-
-
-<h2>General Info</h2>
+<page-header [title]="pageTitle"></page-header>
 <form nz-form>
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your username!">
@@ -13,6 +9,7 @@
           style="width: 320px;"
           placeholder="Contract Name"
           [(ngModel)]="contract.name"
+          (ngModelChange)="updatePageTitle()"
           [ngModelOptions]="{ standalone: true }"
         />
       </nz-input-group>

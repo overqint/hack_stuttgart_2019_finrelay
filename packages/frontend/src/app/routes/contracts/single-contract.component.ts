@@ -19,15 +19,20 @@ export class SingleContractComponent implements OnInit {
   contract: any;
   activatedAccounts: any[];
   accounts: any[];
-  
+  pageTitle: string = 'View Contract';
 
   ngOnInit() {
     this.route.params.subscribe(async params => {
       const contractId = params.contractId;
       this.contract = await this.contractsService.findOneById(contractId);
+      this.updatePageTitle();
       this.accounts = await this.accountsService.findAll();
       this.activatedAccounts = this.accounts.map(e => this.mapToActivatedAccount(e));
     });
+  }
+
+  private updatePageTitle() {
+    this.pageTitle = `View Contract: ${this.contract.name}`;
   }
 
   execute() {
