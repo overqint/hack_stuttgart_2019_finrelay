@@ -41,7 +41,7 @@ export class ContractsComponent implements OnInit {
 
   async createContract() {
     const createdContract = await this.contractsService.createContract({
-      name: 'New Contract',
+      name: `New Contract @ ${new Date().toLocaleTimeString()}`,
       conditions: [
         { type: 'check-amount', data: { operation: 'gt', amount: 8000 } },
       ],
