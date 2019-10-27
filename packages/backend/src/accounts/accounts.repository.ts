@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as api from '../deutsche-bank/api-client/transactions';
 import { MOCK_TRANSACTIONS } from './mock-transactions.const';
+import { TransactionCacheService } from './transaction-cache.service';
 
 /**
  * Repository for Accountss.
@@ -12,7 +13,9 @@ export class AccountsRepository {
    */
   private _data = new Map();
 
-  constructor() {
+  constructor(
+    private transactionCacheService: TransactionCacheService
+  ) {
     this.save({
       _id: 'SpkTest',
       name: 'SPK-1234',
@@ -55,8 +58,8 @@ export class AccountsRepository {
     this._data.set(instance._id, instance);
   }
 
-  async getTransactionsByAccountId(accountId: string) {
-    const account = await this.findOneById(accountId);
+  async getTransactionsByAccount(account: any) {
+    if (!account) throw new Error("Invalid parameter: account");
     if (account.type === 'iban-mock') {
       console.debug('Using iban-mock');
       return MOCK_TRANSACTIONS;
@@ -72,6 +75,15 @@ export class AccountsRepository {
     const transactions = (await client.getCashAccountTransactions(iban)).data
       .transactions;
     console.log('Got linked account transactions from DB API');
+    return transactions;
+  }
+
+  async getTransactionsByAccountId(accountId: string) {
+    const account = await this.findOneById(accountId);
+    let transactions: any[] = await this.getTransactionsByAccount(account);
+    if (!transactions) transactions = [];
+    const iban = account.linkedAccount.iban;
+    transactions = [...this.transactionCacheService.getTransactions(iban), ...transactions].filter(Boolean);
     return transactions;
   }
 

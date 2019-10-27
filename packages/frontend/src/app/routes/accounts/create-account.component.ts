@@ -19,6 +19,11 @@ export class CreateAccountComponent {
     },
   };
 
+  get isOfTypeIBAN() {
+    if (!this.account || !this.account.type) return false;
+    return this.account.type.indexOf('iban') >= 0
+  }
+
   async save() {
     const createdAccount = await this.accountsService.createAccount(this.account);
     this.pubSubService.publish({ type: 'accounts-updated' });

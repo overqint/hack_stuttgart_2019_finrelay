@@ -20,11 +20,15 @@
            
                   <nz-select [(ngModel)]="account.type" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose account type" style="width: 320px;">
                     <nz-option nzValue="iban" nzLabel="Deutsche Bank"></nz-option>
+                    <nz-option nzValue="iban-mock" nzLabel="Deutsche Bank (Mock)"></nz-option>
+                    <nz-option nzValue="iban-sparkasse" nzLabel="Sparkasse"></nz-option>
+                    <nz-option nzValue="wallet-bitcoin" nzLabel="Bitcoin"></nz-option>
+                    <nz-option nzValue="wallet-ethereum" nzLabel="Ethereum"></nz-option>
                   </nz-select>
              
               </nz-form-control>
          
-              <nz-form-control nzErrorTip="Please input your username!" *ngIf="account.type === 'iban'">
+              <nz-form-control *ngIf="isOfTypeIBAN">
                   <nz-input-group nzPrefixIcon="number">
                     <input
                       type="text"
@@ -36,7 +40,7 @@
                     />
                   </nz-input-group>
                 </nz-form-control>
-                <nz-form-control nzErrorTip="Please input your username!" *ngIf="account.type === 'iban'">
+                <nz-form-control *ngIf="account.type === 'iban'">
                       <textarea
                         type="text"
                         nz-input

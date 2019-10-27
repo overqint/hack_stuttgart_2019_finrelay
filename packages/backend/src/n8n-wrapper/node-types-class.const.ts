@@ -7,6 +7,7 @@ import {
   INodeType,
 } from 'n8n-workflow';
 import { InputPlaceholderRepository } from './input-placeholder.repository';
+import { TransactionCacheService } from '../accounts/transaction-cache.service';
 
 export const FunctionNode = new (require('n8n-nodes-base/dist/nodes/Function.node')).Function();
 export const FunctionItemNode = new (require('n8n-nodes-base/dist/nodes/FunctionItem.node')).FunctionItem();
@@ -267,12 +268,17 @@ export class NodeTypesClass implements INodeTypes {
             };
             const wireTransferAmount = parameters.usePercentage ? item.amount * (parameters.amount / 100.0) : parameters.amount;
             const wireTransfer = {
+              bookingDate: new Date().toISOString(),
               iban: parameters.iban,
-              counterPartyName: parameters.counterPartyName,
+              counterPartyName: 'Meisner Enterprise',
+              counterPartyIban: item.originalIban,
               paymentReference: parameters.paymentReference,
               amount: wireTransferAmount
             }
-            console.warn('WIRETRANSFER', wireTransfer);
+            console.warn('WIRETRANSFER', wireTransfer, item);
+            const transactionCacheService = TransactionCacheService.instance;
+            const mappedWireTransfer = {...wireTransfer, cached: true};
+            transactionCacheService.addTransactions(parameters.iban, [mappedWireTransfer]);
             const message = `New wire transfer, transferring ${wireTransfer.amount.toFixed(2)}€ to ${wireTransfer.counterPartyName}, IBAN ${wireTransfer.iban}.`;
             console.log('message:', message)
             if (USE_NOTIFIER) {

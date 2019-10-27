@@ -11,7 +11,7 @@ export class ContractsRepository {
   private _data = new Map();
 
   constructor() {
-    const foo = {
+    let foo: any = {
       _id: 'test1',
       name: 'Test Contract #1',
       conditions: [],
@@ -28,8 +28,26 @@ export class ContractsRepository {
         },
       ],
     };
+    foo = {
+      _id: 'test1',
+      name: 'Test Contract #1',
+      conditions: [
+        { type: 'check-amount', data: { operation: 'gt', amount: 8000 } },
+      ],
+      accounts: [],
+      actions: [
+        {
+          type: 'internal-transfer',
+          data: {
+            paymentReference: 'Gehalt',
+            amount: 200,
+            usePercentage: true,
+          },
+        },
+      ],
+    };
     this._data.set(foo._id, foo);
-/*
+    /*
     const foobar = {
       _id: 'bar',
       name: 'Bar!',
@@ -71,5 +89,4 @@ export class ContractsRepository {
   public async delete(instance_id) {
     return this._data.delete(instance_id);
   }
-
 }
