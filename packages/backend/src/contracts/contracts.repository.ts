@@ -12,8 +12,8 @@ export class ContractsRepository {
 
   constructor() {
     const foo = {
-      _id: 'foo',
-      name: 'Foo!',
+      _id: 'test1',
+      name: 'Test Contract #1',
       conditions: [],
       accounts: [],
       actions: [
@@ -22,7 +22,7 @@ export class ContractsRepository {
           data: {
             fromEmail: 'ralph.greschner.dev@gmail.com',
             toEmail: 'ralph.greschner.dev@gmail.com',
-            subject: 'Geile Sache',
+            subject: 'Test',
             text: `=Transaktion '{{$node["Start"].data.paymentReference}}' am {{$node["Start"].data.valueDate}} ÃƒÂ¼ber {{$node["Start"].data.amount}} EUR.`,
           },
         },

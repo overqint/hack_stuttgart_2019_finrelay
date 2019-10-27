@@ -21,7 +21,7 @@ export class ContractExecutorService {
       contract,
       payload,
     );
-    payload.accounts = contract.accounts;
+    //payload.accounts = contract.accounts;
     let transactions = await this.resolveTransactionsForPayload(payload);
     transactions = transactions.filter(transaction =>
       this.filterExecutableTransactions(transaction, contract.conditions),

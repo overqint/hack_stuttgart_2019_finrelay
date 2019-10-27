@@ -37,7 +37,10 @@ export class SingleContractComponent implements OnInit {
 
   execute() {
     this.contractsService.executeOneById(this.contract._id, {});
-    this.notification.create('warning', 'Best App', 'In the World has executed your Contract');
+    this.notification.create('info', 'Executing Contract', `Executing contract ${this.contract.name}.`);
+    setTimeout(() => {
+      this.notification.create('success', 'Executed Contract', `Executed contract ${this.contract.name}.`);
+    }, 2000);
   }
 
   private mapToActivatedAccount(e: any): { title: any; direction: string } {
