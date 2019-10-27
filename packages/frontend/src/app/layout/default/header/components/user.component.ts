@@ -12,14 +12,14 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       nzPlacement="bottomRight"
       [nzDropdownMenu]="userMenu"
     >
-      <nz-avatar nzSrc="/assets/supergeil.jpg" nzSize="small" class="mr-sm"></nz-avatar>
-      Ralph
+      <nz-avatar nzSrc="/assets/supergeil.jpg" nzSize="large" class="mr-sm"></nz-avatar>
+      <span style="margin-left: 4px;">Ralph</span>
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
       <div nz-menu-item>
-      <div style="width: 140px !important; height: 140px !important: border-radius: 4px;">
-      <img width="140" height="140" src="/assets/supergeil.jpg"/>
+      <div style="width: 140px !important; height: 120px !important: border-radius: 4px;">
+      <img width="140" height="120" src="/assets/supergeil.jpg"/>
       </div>
     </div>
     <li nz-menu-divider></li>
