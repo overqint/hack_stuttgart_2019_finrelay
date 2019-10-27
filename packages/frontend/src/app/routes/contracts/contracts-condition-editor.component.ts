@@ -32,18 +32,18 @@ export class ContractsConditionEditorComponent {
 
   addCondition() {
     const NEW_CONDITION = {
-      type: 'noop',
-      data: {},
+      type: 'check-amount',
+      data: {operation: 'eq'},
     };
     this.contract.conditions.push(NEW_CONDITION);
     this.refreshConditions();
   }
 
   validConditionTypes = [
-    'noop',
-    "account-iban-equals",
-    'counter-party-name-contains',
-    "check-amount",
+    {value: 'noop', label: "Dummy", disabled: true},
+    {value:"check-amount", label: "Amount is"},
+    {value:"account-iban-equals", label: "Counter Party IBAN equals"},
+    {value:'counter-party-name-contains', label: "Counter Party Name contains"},
   ]
 
   onConditionTypeChanged(condition) {

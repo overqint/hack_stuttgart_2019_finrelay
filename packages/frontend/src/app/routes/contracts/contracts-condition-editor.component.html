@@ -1,104 +1,60 @@
-<nz-table #basicTable [nzData]="conditions" class="hidden-thead" nzShowPagination="false">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th>Condition</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let condition of basicTable.data">
-      <td>
-        <nz-select
-          [(ngModel)]="condition.type"
-          (ngModelChange)="onConditionTypeChanged(condition)"
-          nzPlaceHolder="Choose"
-        >
-          <nz-option
-            *ngFor="let validType of validConditionTypes"
-            [nzValue]="validType"
-            [nzLabel]="validType"
-          ></nz-option>
-        </nz-select>
-      </td>
-      <td>
-        <div *ngIf="condition.type === 'noop'">
-          No-op
-        </div>
-
-        <div *ngIf="condition.type === 'check-amount'">
-          <form nz-form>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your username!">
-                <nz-input-group nzPrefixIcon="user">
-                  <nz-select [(ngModel)]="condition.data.operation" [ngModelOptions]="{ standalone: true }" nzPlaceHolder="Choose">
-                    <nz-option nzValue="eq" nzLabel="equals"></nz-option>
-                    <nz-option nzValue="lt" nzLabel="less than"></nz-option>
-                    <nz-option nzValue="gt" nzLabel="greater than"></nz-option>
-                  </nz-select>
-                </nz-input-group>
-              </nz-form-control>
-
-              <nz-form-control nzErrorTip="Please input your username!">
-                <nz-input-group nzPrefixIcon="user">
-                  <input
-                    type="number"
-                    nz-input
-                    [(ngModel)]="condition.data.amount"
-                    [ngModelOptions]="{ standalone: true }"
-                  />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-          </form>
-        </div>
-
-        <div *ngIf="condition.type === 'account-iban-equals'">
-            <form nz-form>
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your username!">
-                  <nz-input-group nzPrefixIcon="user">
-                    <input
-                      type="text"
-                      nz-input
-                      [(ngModel)]="condition.data.iban"
-                      [ngModelOptions]="{ standalone: true }"
-                    />
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-            </form>
-          </div>
-
-          <div *ngIf="condition.type === 'counter-party-name-contains'">
-              <form nz-form>
-                <nz-form-item>
-                  <nz-form-control nzErrorTip="Please input your username!">
-                    <nz-input-group nzPrefixIcon="user">
-                      <input
-                        type="text"
-                        nz-input
-                        [(ngModel)]="condition.data.counterPartyName"
-                        [ngModelOptions]="{ standalone: true }"
-                      />
-                    </nz-input-group>
-                  </nz-form-control>
-                </nz-form-item>
-              </form>
-            </div>
-
-            <div hidden>
-          {{ condition | json }}
-        </div>
-      </td>
-      <td>
-        <button nz-button type="submit" nzType="danger" nzSize="large" (click)="removeCondition(condition)" style="float: right;">
-            <i nz-icon nzType="close"></i> Action
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
-<button nz-button type="submit" nzType="primary" nzSize="large" (click)="addCondition()">
+<nz-card>
+  <div *ngFor="let condition of conditions">
+    <nz-input-group nzCompact>
+      <nz-select
+        [(ngModel)]="condition.type"
+        (ngModelChange)="onConditionTypeChanged(condition)"
+        nzPlaceHolder="Choose"
+      >
+        <nz-option
+          *ngFor="let validType of validConditionTypes"
+          [nzValue]="validType.value"
+          [nzLabel]="validType.label"
+          [nzDisabled]="validType.disabled"
+        ></nz-option>
+      </nz-select>
+      <!-- Check amount. -->
+      <nz-select
+        *ngIf="condition.type === 'check-amount'"
+        [(ngModel)]="condition.data.operation"
+        [ngModelOptions]="{ standalone: true }"
+        nzPlaceHolder="Choose"
+      >
+        <nz-option nzValue="eq" nzLabel="equals"></nz-option>
+        <nz-option nzValue="lt" nzLabel="less than"></nz-option>
+        <nz-option nzValue="gt" nzLabel="greater than"></nz-option>
+      </nz-select>
+      <input
+        *ngIf="condition.type === 'check-amount'"
+        type="number"
+        nz-input
+        [(ngModel)]="condition.data.amount"
+        [ngModelOptions]="{ standalone: true }"
+        style="width:20%;"
+      />
+      <!-- IBAN check. -->
+      <input
+        *ngIf="condition.type === 'account-iban-equals'"
+        type="text"
+        nz-input
+        [(ngModel)]="condition.data.iban"
+        [ngModelOptions]="{ standalone: true }"
+        style="width:20%;"
+        nzPlaceHolder="Choose"
+      />
+      <!-- Counter Party Name contains. -->
+      <input
+        *ngIf="condition.type === 'counter-party-name-contains'"
+        type="text"
+        nz-input
+        [(ngModel)]="condition.data.counterPartyName"
+        [ngModelOptions]="{ standalone: true }"
+        style="width:20%;"
+        nzPlaceHolder="Choose"
+      />
+    </nz-input-group>
+  </div>
+  <button nz-button type="submit" nzType="primary" (click)="addCondition()" style="margin-top: 16px;">
     <i nz-icon nzType="plus"></i> Action
-</button>
+  </button>
+</nz-card>
