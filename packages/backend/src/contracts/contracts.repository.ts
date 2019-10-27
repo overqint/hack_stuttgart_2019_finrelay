@@ -40,8 +40,8 @@ export class ContractsRepository {
           type: 'internal-transfer',
           data: {
             paymentReference: 'Gehalt',
-            amount: 200,
-            usePercentage: true,
+            amount: 2000,
+            usePercentage: false,
           },
         },
       ],
