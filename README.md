@@ -37,3 +37,21 @@ start the frontend with the command: `ng s -o`
 Open the browser (if not already opened);
 <br/>
 the app runs under: http://localhost:4200/
+
+# Adding a bank account to the app
+
+Menu, go to: accounts > manage > new
+
+you need to enter the accounts `iban` and the genereated `access_token` to authorize the app (api) 
+
+## generate a access_token from https://developer.db.com/
+
+- developer.db website, go to menu: *Dashboard* > *My test users* > Create test user (or use an existing one)
+- go to main menu: *Documentation* > *API Explorer* and click authorize > click all the checkboxes 
+- from *My test users* choose the user and copy the `FKN + PIN` (press the copy link)
+- past the copied `FKN + PIN` into the input box and the `access_token` will be generated
+
+### Troubleshooting
+
+If on the developer.db portal, the multiple checkboxes for authorization do not appear while creating a new `access_token`, the app will be probabyl not authorized and will not be able to get the account data 
+
