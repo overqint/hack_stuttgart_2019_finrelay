@@ -128,6 +128,78 @@
                     </form>
                   </div>
 
+
+
+
+
+
+                  <div *ngIf="action.type === 'internal-transfer'">
+                      <form nz-form>
+                        <nz-form-item>
+                          <nz-form-control>
+                            <nz-input-group nzPrefixIcon="user">
+                              <input
+                                type="text"
+                                nz-input
+                                placeholder="Account"
+                                [(ngModel)]="action.data.accountId"
+                                [ngModelOptions]="{ standalone: true }"
+                                [nzAutocomplete]="account"
+                              />
+                            <nz-autocomplete nzBackfill #account>
+                              <nz-auto-option *ngFor="let account of internalAccounts" [nzValue]="account._id">
+                                {{ account.name }}
+                              </nz-auto-option>
+                            </nz-autocomplete>
+
+
+
+
+
+
+                            </nz-input-group>
+                          </nz-form-control>
+                                <nz-form-control>
+                                      <nz-input-group nzPrefixIcon="user">
+                                        <input
+                                          type="text"
+                                          nz-input
+                                          placeholder="Payment Reference"
+                                          [(ngModel)]="action.data.paymentReference"
+                                          [ngModelOptions]="{ standalone: true }"
+                                        />
+                                      </nz-input-group>
+                                    </nz-form-control>
+  
+                                <nz-form-control>
+                                      <nz-input-group nzPrefixIcon="user">
+                                        <input
+                                          type="number"
+                                          placeholder="Amount"
+                                          nz-input
+                                          [(ngModel)]="action.data.amount"
+                                          [ngModelOptions]="{ standalone: true }"
+                                        />
+                                      </nz-input-group>
+                                    </nz-form-control>
+                                    <div style="margin-top: 4px;">
+                                          <nz-switch [(ngModel)]="action.data.usePercentage"
+                                          [ngModelOptions]="{ standalone: true }">
+                                        </nz-switch>
+                                        <span style="padding-left: 8px;">Amount in 
+                                        <span *ngIf="!action.data.usePercentage">EUR</span>
+                                        <span *ngIf="action.data.usePercentage">%</span>
+                                      </span>
+                                        </div>
+                              </nz-form-item>
+                      </form>
+                    </div>
+
+
+
+
+
+
                   <div hidden>
                       {{ action | json }}
                     </div>

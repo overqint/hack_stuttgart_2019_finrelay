@@ -1,11 +1,23 @@
 import { Component, OnInit, Input, NgZone, ChangeDetectorRef } from '@angular/core';
+import { AccountsService } from '@shared/accounts.service';
 
 @Component({
   selector: 'app-contracts-action-editor',
   templateUrl: './contracts-action-editor.component.html',
   styles: [],
 })
-export class ContractsActionEditorComponent {
+export class ContractsActionEditorComponent implements OnInit {
+
+constructor(private accountsService: AccountsService) {
+
+}
+
+internalAccounts: any[] = [];
+
+  async ngOnInit() {
+    this.internalAccounts = await this.accountsService.findAll();
+    debugger;
+  }
   refreshActions() {
     this.actions = [...this.contract.actions];
   }
@@ -42,6 +54,7 @@ export class ContractsActionEditorComponent {
   validActionTypes = [
     { value: 'noop', label: 'Dummy', disabled: true },
     { value: 'e-mail', label: 'Send E-Mail' },
+    { value: 'internal-transfer', label: 'Internal Transfer' },
     { value: 'wire-transfer', label: 'Wire Transfer' },
   ];
 

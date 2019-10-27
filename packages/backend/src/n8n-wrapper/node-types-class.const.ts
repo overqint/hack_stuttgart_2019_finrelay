@@ -273,12 +273,14 @@ export class NodeTypesClass implements INodeTypes {
               amount: wireTransferAmount
             }
             console.warn('WIRETRANSFER', wireTransfer);
+            const message = `New wire transfer, transferring ${wireTransfer.amount.toFixed(2)}€ to ${wireTransfer.counterPartyName}, IBAN ${wireTransfer.iban}.`;
+            console.log('message:', message)
             if (USE_NOTIFIER) {
               const notifier = require('node-notifier');
               notifier.notify(
                 {
-                  title: 'New Transaction',
-                  message: 'Hello from node, Mr. User!',
+                  title: `New Wire transfer`,
+                  message,
                   sound: true, // Only Notification Center or Windows Toasters
                   wait: true // Wait with callback, until user action is taken against notification, does not apply to Windows Toasters as they always wait
                 },

@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { AccountsRepository } from '../accounts/accounts.repository';
 
 @Injectable()
 export class WorkflowFromContractFactoryService {
-  constructor() {}
+  constructor(private accountsRepository: AccountsRepository) {}
 
   async createNodesForWorkflow(contract: any, inputPlaceholder: string) {
     const nodes: any[] = [
@@ -23,8 +24,29 @@ export class WorkflowFromContractFactoryService {
           type: 'n8n-nodes-base.emailSend',
           parameters: {
             fromEmail: 'ralph.greschner.dev@gmail.com',
-            ...action.data
+            ...action.data,
           },
+          typeVersion: 1,
+          position: [400, 470],
+          credentials: {
+            smtp: 'mail-default',
+          },
+        });
+      }
+      if (action.type === 'internal-transfer') {
+        const wireTransferData = {
+          ...action.data,
+        };
+        const internalAccount = await this.accountsRepository.findOneById(
+          wireTransferData.accountId,
+        );
+        wireTransferData.iban = internalAccount.linkedAccount.iban;
+        wireTransferData.counterPartyName = internalAccount.name;
+        delete wireTransferData.accountId;
+        nodes.push({
+          name: '...',
+          type: 'finrelay-nodes.wireTransfer',
+          parameters: wireTransferData,
           typeVersion: 1,
           position: [400, 470],
           credentials: {
@@ -34,7 +56,7 @@ export class WorkflowFromContractFactoryService {
       }
       if (action.type === 'wire-transfer') {
         nodes.push({
-          name: 'Send Email',
+          name: '...',
           type: 'finrelay-nodes.wireTransfer',
           parameters: action.data,
           typeVersion: 1,
@@ -132,7 +154,7 @@ export class WorkflowFromContractFactoryService {
 
     // console.log('connections:', connections);
     workflow.connections = connections;
-    //console.log('workflow:', JSON.stringify(workflow, null, 2));
+    // console.log('workflow:', JSON.stringify(workflow, null, 2));
     console.log('workflow:.nodes', JSON.stringify(workflow.nodes, null, 2));
     return workflow;
   }
