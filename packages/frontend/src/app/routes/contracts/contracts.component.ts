@@ -42,15 +42,17 @@ export class ContractsComponent implements OnInit {
   async createContract() {
     const createdContract = await this.contractsService.createContract({
       name: 'New Contract',
-      conditions: [],
+      conditions: [
+        { type: 'check-amount', data: { operation: 'gt', amount: 8000 } },
+      ],
       accounts: [],
       actions: [
         {
-          type: 'e-mail',
+          type: 'internal-transfer',
           data: {
-            toEmail: 'ralph.greschner.dev@gmail.com',
-            subject: 'Geile Sache',
-            text: `=Transaktion '{{$node["Start"].data.paymentReference}}' am {{$node["Start"].data.valueDate}} ÃƒÂ¼ber {{$node["Start"].data.amount}} EUR.`,
+            paymentReference: 'Gehalt',
+            amount: 2000,
+            usePercentage: false,
           },
         },
       ],
