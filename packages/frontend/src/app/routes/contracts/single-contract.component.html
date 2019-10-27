@@ -17,23 +17,23 @@
   </nz-form-item>
 </form>
 
-<div>
+<div hidden>
   <h2>Enabled Accounts</h2>
   <nz-transfer [nzDataSource]="activatedAccounts" [nzTitles]="['Disabled', 'Enabled']"> </nz-transfer>
 </div>
 
-<div style="margin-top: 8px;">
-    <nz-col [nzSpan]="24">
+<nz-row style="margin-top: 8px;">
+    <nz-col [nzSpan]="14">
   <h2>Conditions</h2>
         <app-contracts-condition-editor [contract]="contract"></app-contracts-condition-editor>
     </nz-col>
-    <nz-col [nzSpan]="24">
+    <nz-col [nzSpan]="14">
         <h2>Actions</h2>
         <app-contracts-action-editor [contract]="contract"></app-contracts-action-editor>
     </nz-col>
-</div>
+</nz-row>
 
-<div style="margin-top: 32px">
+<nz-row style="margin-top: 32px">
 <nz-button-group>
   <button nz-button type="submit" nzType="primary" nzSize="large" (click)="save()">
     Save
@@ -42,11 +42,11 @@
     Execute
   </button>
 </nz-button-group>
-</div>
+</nz-row>
 
-<div hidden>
+<nz-row hidden>
   <h2>Debug</h2>
   <p>
     {{ contract | json }}
   </p>
-</div>
+</nz-row>

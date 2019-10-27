@@ -1,5 +1,9 @@
 <nz-card>
-  <div *ngFor="let condition of conditions">
+    <div *ngIf="conditions.length < 1" >
+        No conditions defined.
+      </div>
+
+  <div *ngFor="let condition of conditions" style="margin-bottom: 4px;">
     <nz-input-group nzCompact>
       <nz-select
         [(ngModel)]="condition.type"
@@ -59,6 +63,6 @@
 
   </div>
   <button nz-button type="submit" nzType="primary" (click)="addCondition()" style="margin-top: 16px;">
-    <i nz-icon nzType="plus"></i> Action
+    <i nz-icon nzType="plus"></i> Condition
   </button>
 </nz-card>

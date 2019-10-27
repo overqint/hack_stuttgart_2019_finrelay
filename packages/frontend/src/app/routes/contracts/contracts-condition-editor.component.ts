@@ -27,6 +27,7 @@ export class ContractsConditionEditorComponent {
     { value: 'account-iban-equals', label: 'Counter Party IBAN equals' },
     { value: 'counter-party-name-contains', label: 'Counter Party Name contains' },
   ];
+  
   refreshConditions() {
     this.conditions = [...this.contract.conditions];
   }

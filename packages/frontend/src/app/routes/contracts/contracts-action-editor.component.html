@@ -1,133 +1,143 @@
 <nz-card>
-<nz-table #basicTable [nzData]="actions" class="hidden-thead" nzShowPagination="false">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let action of basicTable.data">
-      <td>
+
+  <div *ngIf="actions.length < 1" style="margin-bottom: 16px;">
+    No actions defined.
+  </div>
+
+    <div *ngFor="let action of actions">
+        
+      <nz-card style="background: aliceblue;">
+   
+          <nz-input-group nzCompact>
         <nz-select [(ngModel)]="action.type" (ngModelChange)="onActionTypeChanged(action)" nzPlaceHolder="Choose">
-          <nz-option *ngFor="let validType of validActionTypes" [nzValue]="validType" [nzLabel]="validType"></nz-option>
-        </nz-select>
-      </td>
-      <td>
-        <div *ngIf="action.type === 'noop'">
-          No-op
-        </div>
+            <nz-option *ngFor="let validType of validActionTypes" [nzValue]="validType.value" [nzLabel]="validType.label"></nz-option>
+          </nz-select>
+          <button nz-button nzType="dashed" (click)="removeAction(action)">
+              <i nz-icon nzType="close"></i>
+          </button>
+        
+          </nz-input-group>
+          <hr/>
 
-        <div *ngIf="action.type === 'e-mail'">
-                <form nz-form>
-                  <nz-form-item>
-                    <nz-form-control nzErrorTip="Please input your username!">
-                      <nz-input-group nzPrefixIcon="user">
-                        <input
-                          type="email"
-                          nz-input
-                          [(ngModel)]="action.data.toEmail"
-                          [ngModelOptions]="{ standalone: true }"
-                        />
-                      </nz-input-group>
-                    </nz-form-control>
-      
-                    <nz-form-control nzErrorTip="Please input your username!">
-                      <nz-input-group nzPrefixIcon="user">
-                        <input
-                          type="text"
-                          nz-input
-                          [(ngModel)]="action.data.subject"
-                          [ngModelOptions]="{ standalone: true }"
-                        />
-                      </nz-input-group>
-                    </nz-form-control>
-      
-                    <nz-form-control nzErrorTip="Please input your username!">
-                      <nz-input-group nzPrefixIcon="user">
-                        <textarea
-                          type="text"
-                          nz-input
-                          [(ngModel)]="action.data.text"
-                          [ngModelOptions]="{ standalone: true }"
-                        ></textarea>
-                      </nz-input-group>
-                    </nz-form-control>
-                  </nz-form-item>
-                </form>
-              </div>
+          <div *ngIf="action.type === 'noop'">
+              No-op
+          </div>
+              
+              <div *ngIf="action.type === 'e-mail'">
+                  <form nz-form>
+                    <nz-form-item>
+                      <nz-form-control>
+                        <nz-input-group nzPrefixIcon="user">
+                          <input
+                            type="email"
+                            nz-input
+                            placeholder='Recipient'
+                            [(ngModel)]="action.data.toEmail"
+                            [ngModelOptions]="{ standalone: true }"
+                          />
+                        </nz-input-group>
+                      </nz-form-control>
+        
+                      <nz-form-control>
+                        <nz-input-group nzPrefixIcon="user">
+                          <input
+                            type="text"
+                            nz-input
+                            placeholder='Subject'
+                            [(ngModel)]="action.data.subject"
+                            [ngModelOptions]="{ standalone: true }"
+                          />
+                        </nz-input-group>
+                      </nz-form-control>
+        
+                      <nz-form-control>
+                        <nz-input-group>
+                          <textarea
+                            type="text"
+                            nz-input
+                            placeholder='Text'
+                            [(ngModel)]="action.data.text"
+                            [ngModelOptions]="{ standalone: true }"
+                          ></textarea>
+                        </nz-input-group>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </form>
+                </div>
 
-              <div *ngIf="action.type === 'wire-transfer'">
+                <div *ngIf="action.type === 'wire-transfer'">
                     <form nz-form>
                       <nz-form-item>
-                        <nz-form-control nzErrorTip="Please input your username!">
+                        <nz-form-control>
                           <nz-input-group nzPrefixIcon="user">
                             <input
                               type="text"
                               nz-input
+                              placeholder="Counter Party Name"
                               [(ngModel)]="action.data.counterPartyName"
                               [ngModelOptions]="{ standalone: true }"
                             />
                           </nz-input-group>
                         </nz-form-control>
           
-                        <nz-form-control nzErrorTip="Please input your username!">
+                        <nz-form-control>
                                 <nz-input-group nzPrefixIcon="user">
                                   <input
                                     type="text"
                                     nz-input
+                                    placeholder="Counter Party IBAN"
                                     [(ngModel)]="action.data.iban"
                                     [ngModelOptions]="{ standalone: true }"
                                   />
                                 </nz-input-group>
                               </nz-form-control>
 
-                              <nz-form-control nzErrorTip="Please input your username!">
+                              <nz-form-control>
                                     <nz-input-group nzPrefixIcon="user">
                                       <input
                                         type="text"
                                         nz-input
+                                        placeholder="Payment Reference"
                                         [(ngModel)]="action.data.paymentReference"
                                         [ngModelOptions]="{ standalone: true }"
                                       />
                                     </nz-input-group>
                                   </nz-form-control>
 
-                              <nz-form-control nzErrorTip="Please input your username!">
+                              <nz-form-control>
                                     <nz-input-group nzPrefixIcon="user">
                                       <input
                                         type="number"
+                                        placeholder="Amount"
                                         nz-input
                                         [(ngModel)]="action.data.amount"
                                         [ngModelOptions]="{ standalone: true }"
                                       />
-                                      <span *ngIf="!action.data.usePercentage">EUR</span>
-                                      <span *ngIf="action.data.usePercentage">%</span>
                                     </nz-input-group>
                                   </nz-form-control>
-                                  <nz-form-control nzErrorTip="Please input your username!">
-                                        <nz-switch 
-                                        [(ngModel)]="action.data.usePercentage"
-                                        [ngModelOptions]="{ standalone: true }"></nz-switch>
-                                      </nz-form-control>
+                                  <div style="margin-top: 4px;">
+                                        <nz-switch [(ngModel)]="action.data.usePercentage"
+                                        [ngModelOptions]="{ standalone: true }">
+                                      </nz-switch>
+                                      <span style="padding-left: 8px;">Amount in 
+                                      <span *ngIf="!action.data.usePercentage">EUR</span>
+                                      <span *ngIf="action.data.usePercentage">%</span>
+                                    </span>
+                                      </div>
                             </nz-form-item>
                     </form>
                   </div>
 
+                  <div hidden>
+                      {{ action | json }}
+                    </div>
 
-        <div hidden>
-          {{ action | json }}
-        </div>
-      </td>
-      <td>
-        <button nz-button type="submit" nzType="danger" nzSize="large" (click)="removeAction(action)" style="float: right;">
-            <i nz-icon nzType="close"></i> Action
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+
+      </nz-card>
+    </div>
+
+
+
 <button nz-button type="submit" nzType="primary" (click)="addAction()">
     <i nz-icon nzType="plus"></i> Action
 </button>

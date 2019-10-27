@@ -40,10 +40,10 @@ export class ContractsActionEditorComponent {
   }
 
   validActionTypes = [
-    'noop',
-    "e-mail",
-    "wire-transfer"
-  ]
+    { value: 'noop', label: 'Dummy', disabled: true },
+    { value: 'e-mail', label: 'Send E-Mail' },
+    { value: 'wire-transfer', label: 'Wire Transfer' },
+  ];
 
   onActionTypeChanged(action) {
     action.data = {};
