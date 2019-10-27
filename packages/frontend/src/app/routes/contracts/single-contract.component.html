@@ -2,7 +2,7 @@
 <form nz-form>
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your username!">
-      <nz-input-group nzPrefixIcon="user">
+      <nz-input-group nzPrefixIcon="book">
         <input
           type="text"
           nz-input
@@ -36,10 +36,10 @@
 <nz-row style="margin-top: 32px">
 <nz-button-group>
   <button nz-button type="submit" nzType="primary" nzSize="large" (click)="save()">
-    Save
+      <i nz-icon nzType="save"></i> Save
   </button>
   <button nz-button type="submit" nzType="primary" nzSize="large" (click)="execute()">
-    Execute
+      <i nz-icon nzType="play-circle"></i> Execute
   </button>
 </nz-button-group>
 </nz-row>

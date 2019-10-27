@@ -28,7 +28,6 @@ export class ContractsComponent implements OnInit {
 
   async handleOk() {
     console.log('Button ok clicked!');
-    //debugger;
     await this.contractsService.deleteOneById(this.contractToDelete._id);
     this.isVisible = false;
     this.refresh();

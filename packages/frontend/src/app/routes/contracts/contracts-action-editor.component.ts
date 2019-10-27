@@ -16,7 +16,6 @@ internalAccounts: any[] = [];
 
   async ngOnInit() {
     this.internalAccounts = await this.accountsService.findAll();
-    debugger;
   }
   refreshActions() {
     this.actions = [...this.contract.actions];

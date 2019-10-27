@@ -13,13 +13,14 @@ export class SingleContractComponent implements OnInit {
   constructor(
     private accountsService: AccountsService,
     private contractsService: ContractsService,
-    private route: ActivatedRoute, private notification: FrontendNotificationService
-  ) { }
+    private route: ActivatedRoute,
+    private notification: FrontendNotificationService,
+  ) {}
 
   contract: any;
   activatedAccounts: any[];
   accounts: any[];
-  pageTitle: string = 'View Contract';
+  pageTitle = 'View Contract';
 
   ngOnInit() {
     this.route.params.subscribe(async params => {
@@ -54,7 +55,15 @@ export class SingleContractComponent implements OnInit {
 
   async save() {
     this.contract.accounts = this.activatedAccounts.filter(e => e.direction === 'right').map(e => e._id);
-    await this.contractsService.updateOneById(this.contract._id, this.contract);
+    try {
+      await this.contractsService.updateOneById(this.contract._id, this.contract);
+      this.notification.create('success', 'Saved contract', ` Contract ${this.contract.name} was saved.`);
+    } catch (err) {
+      this.notification.create(
+        'error',
+        'Error saving contract',
+        ` Could not save contract ${this.contract.name}, error: ${err.message}`,
+      );
+    }
   }
-
 }

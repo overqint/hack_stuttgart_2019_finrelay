@@ -53,6 +53,10 @@ import {
   UsbOutline,
   UserOutline,
   WeiboCircleOutline,
+  NumberOutline,
+  EuroOutline,
+  PlayCircleOutline,
+  SaveOutline,
 } from '@ant-design/icons-angular/icons';
 
 export const ICONS_AUTO = [
@@ -71,6 +75,7 @@ export const ICONS_AUTO = [
   DislikeOutline,
   DollarOutline,
   DownloadOutline,
+  EuroOutline,
   ForkOutline,
   FireOutline,
   FrownOutline,
@@ -87,10 +92,13 @@ export const ICONS_AUTO = [
   MenuFoldOutline,
   MenuUnfoldOutline,
   MessageOutline,
+  NumberOutline,
   PayCircleOutline,
   PieChartOutline,
+  PlayCircleOutline,
   PrinterOutline,
   RocketOutline,
+  SaveOutline,
   ScanOutline,
   SettingOutline,
   ShareAltOutline,
